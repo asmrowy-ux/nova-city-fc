@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { Link } from "@/i18n/routing";
 import { ChevronRight, Mail, Phone, MapPin } from "lucide-react";
 import { PortableText } from '@portabletext/react';
+import ContactForm from "@/components/ContactForm";
 
 export default async function ContactPage() {
   const [contact, settings] = await Promise.all([
@@ -94,6 +95,8 @@ export default async function ContactPage() {
                   <PortableText value={contact.description} />
                 </div>
               )}
+
+              <ContactForm />
             </div>
 
             <div className="relative">
