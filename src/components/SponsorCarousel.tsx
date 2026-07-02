@@ -28,8 +28,8 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
     const multiplied = Array(3).fill(mockSponsors).flat();
     return multiplied.map((sponsor, i) => (
       <div key={`${keyPrefix}-${i}`} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300 mx-8">
-        <sponsor.Icon className="w-8 h-8 text-white" />
-        <span className="text-white font-bold tracking-widest text-lg whitespace-nowrap">{sponsor.name}</span>
+        <sponsor.Icon className="w-8 h-8 text-foreground" />
+        <span className="text-foreground font-bold tracking-widest text-lg whitespace-nowrap">{sponsor.name}</span>
       </div>
     ));
   };
@@ -44,7 +44,7 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
           {logoUrl ? (
             <img src={logoUrl} alt={sponsor.name} className="max-h-10 max-w-[120px] object-contain" />
           ) : (
-            <span className="text-lg font-black tracking-widest uppercase text-white whitespace-nowrap">{sponsor.name}</span>
+            <span className="text-lg font-black tracking-widest uppercase text-foreground whitespace-nowrap">{sponsor.name}</span>
           )}
         </div>
       );
@@ -58,8 +58,8 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
       </h3>
 
       {/* Gradient edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none mt-16" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none mt-16" />
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none mt-16" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none mt-16" />
 
       <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
         <div className="flex px-4">

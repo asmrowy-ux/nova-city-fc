@@ -50,7 +50,7 @@ export default async function Footer() {
   return (
     <>
       {/* Sponsor Carousel globally visible on all pages just above the footer content */}
-      <div className="bg-[#0a0a0a] border-b border-border">
+      <div className="bg-background border-b border-border">
         <SponsorCarousel sponsors={sponsors} />
       </div>
 
