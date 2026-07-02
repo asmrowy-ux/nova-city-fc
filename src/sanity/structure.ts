@@ -12,11 +12,25 @@ export const structure: StructureResolver = (S) =>
         ),
       S.divider(),
       S.listItem()
-        .title('⚙️ Site Settings')
+        .title('⚙️ Ustawienia Główne (Site Settings)')
         .child(
           S.document()
             .schemaType('siteSettings')
             .documentId('siteSettings')
+        ),
+      S.listItem()
+        .title('📞 Kontakt i Siedziba')
+        .child(
+          S.document()
+            .schemaType('contact')
+            .documentId('contact')
+        ),
+      S.listItem()
+        .title('🏟️ Stadion')
+        .child(
+          S.document()
+            .schemaType('stadium')
+            .documentId('stadium')
         ),
       S.divider(),
       S.documentTypeListItem('post').title('📰 News Articles'),
