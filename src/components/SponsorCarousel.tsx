@@ -25,7 +25,7 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
   ];
 
   const renderMockSponsors = (keyPrefix: string) => {
-    const multiplied = Array(3).fill(mockSponsors).flat();
+    const multiplied = Array(20).fill(mockSponsors).flat();
     return multiplied.map((sponsor, i) => (
       <div key={`${keyPrefix}-${i}`} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300 mx-8">
         <sponsor.Icon className="w-8 h-8 text-foreground" />
@@ -35,7 +35,7 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
   };
 
   const renderSanitySponsors = (keyPrefix: string) => {
-    const multiplied = Array(5).fill(sponsors).flat();
+    const multiplied = Array(20).fill(sponsors).flat();
     return multiplied.map((sponsor, i) => {
       const ref = sponsor?.logo?.asset?._ref || '';
       const logoUrl = ref ? `https://cdn.sanity.io/images/3kzdw0qu/production/${ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}` : '';
@@ -62,10 +62,10 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
       <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none mt-16" />
 
       <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
-        <div className="flex px-4">
+        <div className="flex">
           {hasSanitySponsors ? renderSanitySponsors('g1') : renderMockSponsors('g1')}
         </div>
-        <div className="flex px-4" aria-hidden="true">
+        <div className="flex" aria-hidden="true">
           {hasSanitySponsors ? renderSanitySponsors('g2') : renderMockSponsors('g2')}
         </div>
       </div>

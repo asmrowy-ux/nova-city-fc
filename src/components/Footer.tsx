@@ -36,6 +36,8 @@ export default async function Footer() {
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{ 
     title, 
     logoSize,
+    footerDescription,
+    footerCopyright,
     logo { asset { _ref } } 
   }`);
 
@@ -46,6 +48,8 @@ export default async function Footer() {
   }
 
   const clubName = settings?.title || '';
+  const footerDesc = settings?.footerDescription || t('description', { clubName });
+  const footerCopy = settings?.footerCopyright || `© ${new Date().getFullYear()} ${clubName}. Wszelkie prawa zastrzeżone.`;
 
   return (
     <>
@@ -84,7 +88,7 @@ export default async function Footer() {
                 </div>
               </Link>
               <p className="text-gray-400 text-sm mb-6 max-w-sm">
-                {t('description', { clubName })}
+                {footerDesc}
               </p>
               <div className="flex gap-4">
                 {[Globe, FacebookIcon, InstagramIcon, YoutubeIcon].map((Icon, i) => (
@@ -137,7 +141,7 @@ export default async function Footer() {
           </div>
 
           <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 font-medium border-t border-border/50 pt-8">
-            <p>&copy; {new Date().getFullYear()} {t('rights', { clubName })}</p>
+            <p>{footerCopy}</p>
             <div className="flex gap-6 mt-4 md:mt-0">
               <Link href="/legal/privacy" className="hover:text-foreground transition-colors">{t('privacy')}</Link>
               <Link href="/legal/terms" className="hover:text-foreground transition-colors">{t('terms')}</Link>

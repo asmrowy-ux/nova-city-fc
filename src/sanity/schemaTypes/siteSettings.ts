@@ -35,5 +35,17 @@ export const siteSettingsType = defineType({
       type: 'image',
       description: 'Icon shown in the browser tab (should be square).',
     }),
+    defineField({
+      name: 'footerDescription',
+      title: 'Opis w stopce',
+      type: 'text',
+      description: 'Krótki opis klubu widoczny w lewej części stopki.',
+    }),
+    defineField({
+      name: 'footerCopyright',
+      title: 'Tekst Praw Autorskich (Copyright)',
+      type: 'string',
+      description: 'Tekst wyświetlany na samym dole stopki. Zostaw puste, aby użyć domyślnego.',
+    }),
   ],
 })
