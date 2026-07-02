@@ -47,5 +47,18 @@ export const siteSettingsType = defineType({
       type: 'string',
       description: 'Tekst wyświetlany na samym dole stopki. Zostaw puste, aby użyć domyślnego.',
     }),
+    defineField({
+      name: 'heroDescription',
+      title: 'Opis w sekcji głównej (Hero)',
+      type: 'text',
+      description: 'Tekst widoczny pod nazwą klubu na samej górze strony. Zostaw puste, by użyć domyślnego.',
+    }),
+    defineField({
+      name: 'syncHeroWithFooter',
+      title: 'Użyj opisu ze stopki w sekcji głównej',
+      type: 'boolean',
+      description: 'Zaznacz, aby tekst w sekcji głównej pobierał się z pola "Opis w stopce", zastępując własny opis.',
+      initialValue: false,
+    }),
   ],
 })

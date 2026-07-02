@@ -76,7 +76,7 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
           100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 40s linear infinite;
+          animation: scroll 120s linear infinite;
         }
       `}</style>
     </div>

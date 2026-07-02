@@ -22,7 +22,7 @@ const YoutubeIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export default function HeroSection({ clubName = '', logoRef = '' }: { clubName?: string, logoRef?: string }) {
+export default function HeroSection({ clubName = '', logoRef = '', description = '' }: { clubName?: string, logoRef?: string, description?: string }) {
   function getImageUrl(ref: string) {
     if (!ref) return '';
     return `https://cdn.sanity.io/images/3kzdw0qu/production/${ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}`;
@@ -32,6 +32,7 @@ export default function HeroSection({ clubName = '', logoRef = '' }: { clubName?
   const titleParts = clubName ? clubName.split(' ') : ['WICHER', 'GDYNIA'];
   const titleFirst = titleParts[0] || 'WICHER';
   const titleRest = titleParts.slice(1).join(' ') || 'GDYNIA';
+  const displayDescription = description || `Oficjalna strona ${clubName || 'Klubu'}. Bądź na bieżąco z najnowszymi wiadomościami, meczami i ekskluzywnymi treściami klubowymi.`;
 
   return (
     <section className="relative h-screen min-h-[800px] flex items-center overflow-hidden bg-background">
@@ -99,9 +100,8 @@ export default function HeroSection({ clubName = '', logoRef = '' }: { clubName?
 
           <div className="w-20 h-1 bg-primary mb-8 ml-2" />
 
-          <p className="text-muted-foreground max-w-lg text-lg leading-relaxed mb-10 font-medium ml-2">
-            Oficjalna strona {clubName || 'Klubu'}. <br/>
-            Bądź na bieżąco z najnowszymi wiadomościami, meczami i ekskluzywnymi treściami klubowymi.
+          <p className="text-muted-foreground max-w-lg text-lg leading-relaxed mb-10 font-medium ml-2 whitespace-pre-line">
+            {displayDescription}
           </p>
 
           <div className="flex items-center gap-6 ml-2">

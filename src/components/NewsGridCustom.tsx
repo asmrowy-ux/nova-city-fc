@@ -16,12 +16,13 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
   const fallbackLogoUrl = getImageUrl(logoRef);
 
   const renderFallback = () => (
-    <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center p-8">
+    <div className="w-full h-full bg-gradient-animated flex items-center justify-center p-8 relative overflow-hidden">
       {fallbackLogoUrl ? (
-        <img src={fallbackLogoUrl} alt={clubName} className="w-24 h-24 sm:w-32 sm:h-32 object-contain opacity-50 drop-shadow-2xl" />
+        <img src={fallbackLogoUrl} alt={clubName} className="w-24 h-24 sm:w-32 sm:h-32 object-contain opacity-50 drop-shadow-2xl z-10" />
       ) : (
-        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary opacity-50">NC</div>
+        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary opacity-50 z-10">NC</div>
       )}
+      <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
     </div>
   );
 
