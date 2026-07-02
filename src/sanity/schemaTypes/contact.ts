@@ -37,5 +37,11 @@ export const contactType = defineType({
       type: 'image',
       options: { hotspot: true },
     }),
+    defineField({
+      name: 'imageSize',
+      title: 'Image Maximum Size (w pikselach np. 400)',
+      type: 'number',
+      description: 'Zostaw puste, aby obraz wypełnił całą przestrzeń.',
+    }),
   ],
 })

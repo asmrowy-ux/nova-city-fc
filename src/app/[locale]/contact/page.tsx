@@ -103,9 +103,18 @@ export default async function ContactPage() {
 
           <div className="relative">
             {imageUrl ? (
-              <div className="sticky top-32 rounded-2xl overflow-hidden border border-border shadow-2xl h-full min-h-[400px]">
-                <img src={imageUrl} alt="Siedziba klubu" className="w-full h-full object-cover absolute inset-0" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />
+              <div 
+                className={`sticky top-32 rounded-2xl overflow-hidden border border-border shadow-2xl mx-auto ${!contact?.imageSize ? 'h-full min-h-[400px]' : ''}`}
+                style={{
+                  maxWidth: contact?.imageSize ? `${contact.imageSize}px` : '100%',
+                }}
+              >
+                <img 
+                  src={imageUrl} 
+                  alt="Siedziba klubu" 
+                  className={contact?.imageSize ? "w-full h-auto object-contain" : "w-full h-full object-cover absolute inset-0"} 
+                />
+                {!contact?.imageSize && <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent pointer-events-none" />}
               </div>
             ) : (
               <div className="sticky top-32 rounded-2xl overflow-hidden border border-border shadow-2xl h-full min-h-[400px] bg-secondary flex items-center justify-center relative">
