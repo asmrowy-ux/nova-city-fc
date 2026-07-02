@@ -36,16 +36,19 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
           <Link href={`/news/${mainPost.slug?.current}`} className="group relative rounded-3xl overflow-hidden min-h-[400px] border border-gray-800 flex flex-col justify-end p-8 cursor-pointer">
             <div className="absolute inset-0 z-0">
               {mainImageUrl ? (
-                <img 
-                  src={mainImageUrl} 
-                  alt={mainPost.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
+                <>
+                  <img 
+                    src={mainImageUrl} 
+                    alt={mainPost.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" />
+                </>
               ) : (
                 renderFallback()
               )}
               {/* Gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-20" />
             </div>
 
             <div className="relative z-10 flex flex-col items-start w-full">
@@ -75,11 +78,14 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
                 <Link key={post._id || index} href={`/news/${post.slug?.current}`} className="group flex flex-col sm:flex-row bg-[#121212] border border-gray-800 rounded-3xl overflow-hidden cursor-pointer hover:bg-[#1a1a1a] transition-colors flex-1">
                   <div className="sm:w-2/5 h-48 sm:h-auto relative overflow-hidden shrink-0">
                     {imageUrl ? (
-                      <img 
-                        src={imageUrl} 
-                        alt={post.title} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                      <>
+                        <img 
+                          src={imageUrl} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" />
+                      </>
                     ) : (
                       renderFallback()
                     )}

@@ -40,10 +40,20 @@ export default async function NewsPage() {
               <Link href={`/news/${post.slug?.current || '#'}`} key={post._id} className="group cursor-pointer">
                 <div className="h-64 bg-secondary rounded-xl overflow-hidden mb-4 relative flex items-center justify-center">
                   {post.mainImage ? (
-                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
-                         style={{ backgroundImage: `url(${getImageUrl(post.mainImage.asset._ref)})` }} />
+                    <>
+                      <div className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
+                           style={{ backgroundImage: `url(${getImageUrl(post.mainImage.asset._ref)})` }} />
+                      <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" />
+                    </>
                   ) : (
-                    clubLogoUrl && <img src={clubLogoUrl} alt="Logo" className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-30 dark:opacity-40 mix-blend-luminosity" />
+                    <div className="absolute inset-0 bg-gradient-animated flex items-center justify-center overflow-hidden">
+                      {clubLogoUrl ? (
+                        <img src={clubLogoUrl} alt="Logo" className="w-20 h-20 object-contain opacity-50 drop-shadow-2xl z-10" />
+                      ) : (
+                        <span className="text-primary font-black text-4xl opacity-50 z-10">NC</span>
+                      )}
+                      <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
+                    </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-80" />
                   <div className="absolute bottom-4 left-4 z-10">

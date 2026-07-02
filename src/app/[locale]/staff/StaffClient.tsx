@@ -37,16 +37,23 @@ export default function StaffClient({ staffMembers, clubName, clubLogoUrl }: { s
             >
               <div className="aspect-square bg-background relative flex items-end justify-center overflow-hidden">
                 {imgUrl ? (
-                  <img 
-                    src={imgUrl} 
-                    alt={staff.name} 
-                    className="absolute bottom-0 w-[90%] h-[90%] object-cover object-top mask-image-bottom transition-transform duration-500 group-hover:scale-110" 
-                    style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)' }}
-                  />
+                  <>
+                    <img 
+                      src={imgUrl} 
+                      alt={staff.name} 
+                      className="absolute bottom-0 w-[90%] h-[90%] object-cover object-top mask-image-bottom transition-transform duration-500 group-hover:scale-110" 
+                      style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)' }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)' }} />
+                  </>
                 ) : (
-                  <div className="absolute inset-0 flex items-center justify-center font-black text-8xl overflow-hidden bg-background">
-                    {clubLogoUrl && <img src={clubLogoUrl} alt="Logo" className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 dark:opacity-30 mix-blend-luminosity" />}
-                    <span className="text-gray-500/20 relative z-10">NC</span>
+                  <div className="absolute inset-0 bg-gradient-animated flex items-center justify-center overflow-hidden">
+                    {clubLogoUrl ? (
+                      <img src={clubLogoUrl} alt="Logo" className="w-24 h-24 sm:w-32 sm:h-32 object-contain opacity-50 drop-shadow-2xl z-10" />
+                    ) : (
+                      <span className="text-primary font-black text-6xl opacity-50 z-10">NC</span>
+                    )}
+                    <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
                   </div>
                 )}
                 

@@ -50,14 +50,17 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
       {/* Hero image */}
       <div className="relative w-full h-[40vh] md:h-[55vh]">
         {post.mainImage ? (
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${getImageUrl(post.mainImage.asset._ref)})` }}
-          />
+          <>
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${getImageUrl(post.mainImage.asset._ref)})` }}
+            />
+            <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" />
+          </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-secondary via-background to-secondary" />
+          <div className="absolute inset-0 bg-gradient-animated" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-20" />
 
         <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-10">
           <span className="inline-block px-3 py-1 bg-primary text-background text-xs font-bold tracking-widest uppercase mb-4">
