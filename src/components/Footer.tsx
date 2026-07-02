@@ -38,17 +38,23 @@ export default async function Footer() {
                 <img 
                   src={logoUrl} 
                   alt={clubName || "Club Logo"} 
-                  style={{ height: settings?.logoSize ? `${settings.logoSize}px` : '48px', width: 'auto' }}
+                  style={{ height: settings?.logoSize ? `${settings.logoSize}px` : '56px', width: 'auto' }}
                   className="object-contain shrink-0" 
                 />
               ) : (
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center font-bold text-background text-lg shrink-0">
+                <div className="w-14 h-14 bg-primary flex items-center justify-center font-bold text-background text-lg shrink-0" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
                   NC
                 </div>
               )}
-              <span className="font-extrabold text-xl tracking-wider uppercase leading-tight text-foreground">
-                {clubName}
-              </span>
+              <div className="flex flex-col leading-none pt-1">
+                <div className="font-black text-xl tracking-wider uppercase drop-shadow-sm flex gap-1">
+                  <span className="text-white">{clubName ? clubName.split(' ')[0] : 'WICHER'}</span>
+                  <span className="text-primary">{clubName ? clubName.split(' ').slice(1).join(' ') : 'GDYNIA'}</span>
+                </div>
+                <span className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">
+                  KLUB SPORTOWY
+                </span>
+              </div>
             </Link>
             <p className="text-gray-400 text-sm mb-6 max-w-sm">
               {t('description', { clubName })}

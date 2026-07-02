@@ -13,100 +13,66 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
   const pathname = usePathname();
   const { cartCount, setIsCartOpen } = useCart();
 
-  const navLinks: { key: string; href: string }[] = [
-    { key: 'news', href: '/news' },
-    { key: 'team', href: '/team' },
-    { key: 'staff', href: '/staff' },
-    { key: 'matches', href: '/matches' },
-  ];
+  const titleParts = title ? title.split(' ') : ['WICHER', 'GDYNIA'];
+  const titleFirst = titleParts[0] || 'WICHER';
+  const titleRest = titleParts.slice(1).join(' ') || 'GDYNIA';
 
   return (
-    <nav className="fixed top-0 w-full z-50 transition-all duration-300 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4 min-h-[5rem] gap-8">
+    <nav className="fixed top-0 w-full z-50 transition-all duration-300 bg-[#0a0a0a] border-b border-gray-900">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4 min-h-[5rem] gap-4">
+          
+          {/* Logo & Title */}
           <div className="flex items-center shrink-0">
-            <Link href="/" className="flex-shrink-0 flex items-center gap-1">
+            <Link href="/" className="flex-shrink-0 flex items-center gap-3">
               {logoUrl ? (
                 <img 
                   src={logoUrl} 
                   alt={title || "Club Logo"} 
-                  style={{ height: logoSize ? `${logoSize}px` : '48px', width: 'auto' }} 
+                  style={{ height: logoSize ? `${logoSize}px` : '56px', width: 'auto' }} 
                   className="object-contain" 
                 />
               ) : (
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center font-bold text-background">
+                <div className="w-14 h-14 bg-primary flex items-center justify-center font-bold text-background" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
                   NC
                 </div>
               )}
-              <span className="font-black text-xl tracking-wider uppercase hidden sm:block bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent drop-shadow-sm">
-                {title || ''}
-              </span>
+              <div className="hidden sm:flex flex-col leading-none pt-1">
+                <div className="font-black text-xl md:text-2xl tracking-wider uppercase drop-shadow-sm flex gap-1">
+                  <span className="text-white">{titleFirst}</span>
+                  <span className="text-primary">{titleRest}</span>
+                </div>
+                <span className="text-gray-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mt-1">
+                  KLUB SPORTOWY
+                </span>
+              </div>
             </Link>
           </div>
           
-          <div className="hidden md:flex space-x-8 items-center">
-            {navLinks.map((item) => (
-              <Link 
-                key={item.key} 
-                href={item.href} 
-                className="text-sm font-semibold tracking-widest uppercase hover:text-primary transition-colors"
-              >
-                {t(item.key)}
-              </Link>
-            ))}
-
-            {/* Klub dropdown */}
-            <div className="group relative">
-              <button className="flex items-center gap-1 text-sm font-semibold tracking-widest uppercase hover:text-primary transition-colors">
-                {t('club')}
-                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
-              </button>
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-secondary border border-border rounded-lg overflow-hidden shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px]">
-                <Link href="/history" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  🏛️ Historia Klubu
-                </Link>
-                <Link href="/hall-of-fame" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  ⭐ Hall of Fame
-                </Link>
-                <Link href="/team" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  👥 Pierwsza Drużyna
-                </Link>
-                <Link href="/staff" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  🏋️ Sztab Trenerski
-                </Link>
-                <Link href="/table" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  📊 Tabela Ligi
-                </Link>
-                <Link href="/matches" className="block px-5 py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary hover:text-background transition-colors">
-                  ⚽ Mecze i Wyniki
-                </Link>
-              </div>
-            </div>
-
-            <Link 
-              href="/shop" 
-              className="text-sm font-semibold tracking-widest uppercase hover:text-primary transition-colors"
-            >
-              {t('shop')}
+          {/* Main Links */}
+          <div className="hidden lg:flex space-x-8 xl:space-x-12 items-center">
+            <Link href="/news" className="text-xs font-bold tracking-[0.15em] uppercase text-gray-300 hover:text-white transition-colors">
+              AKTUALNOŚCI
+            </Link>
+            <Link href="/team" className="text-xs font-bold tracking-[0.15em] uppercase text-gray-300 hover:text-white transition-colors">
+              DRUŻYNY
+            </Link>
+            <Link href="/history" className="text-xs font-bold tracking-[0.15em] uppercase text-gray-300 hover:text-white transition-colors">
+              KLUB
+            </Link>
+            <Link href="/careers" className="text-xs font-bold tracking-[0.15em] uppercase text-gray-300 hover:text-white transition-colors">
+              KARIERA
+            </Link>
+            <Link href="/contact" className="text-xs font-bold tracking-[0.15em] uppercase text-gray-300 hover:text-white transition-colors">
+              KONTAKT
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
-            <div className="group relative hidden sm:flex items-center cursor-pointer">
-              <Globe className="w-5 h-5 text-gray-400 hover:text-primary transition-colors" />
-              <div className="absolute top-full mt-2 right-0 bg-secondary border border-border rounded overflow-hidden shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-                <Link href={pathname} locale="pl" className="block px-4 py-2 text-xs font-bold hover:bg-primary hover:text-background">PL</Link>
-                <Link href={pathname} locale="en" className="block px-4 py-2 text-xs font-bold hover:bg-primary hover:text-background">EN</Link>
-                <Link href={pathname} locale="uk" className="block px-4 py-2 text-xs font-bold hover:bg-primary hover:text-background">UK</Link>
-              </div>
-            </div>
-            <button className="text-foreground hover:text-primary transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+          {/* Right Actions */}
+          <div className="flex items-center space-x-6">
             <button 
               onClick={() => setIsCartOpen(true)}
-              className="relative text-foreground hover:text-primary transition-colors"
+              className="relative text-gray-300 hover:text-white transition-colors"
             >
               <ShoppingBag className="w-5 h-5" />
               {cartCount > 0 && (
@@ -116,12 +82,16 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
               )}
             </button>
             <Link 
-              href="/tickets" 
-              className="hidden sm:inline-flex items-center justify-center px-6 py-2 border border-primary text-primary font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-background transition-all"
+              href="/join" 
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-background font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-background transition-all rounded-sm"
             >
-              {t('tickets')}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              DOŁĄCZ DO KLUBU
             </Link>
-            <button className="md:hidden text-foreground">
+            <button className="lg:hidden text-white">
               <Menu className="w-6 h-6" />
             </button>
           </div>
