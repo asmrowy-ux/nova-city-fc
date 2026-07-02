@@ -81,7 +81,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
             </div>
 
             <Link 
-              href="#" 
+              href="/shop" 
               className="text-sm font-semibold tracking-widest uppercase hover:text-primary transition-colors"
             >
               {t('shop')}
@@ -105,7 +105,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
               <ShoppingBag className="w-5 h-5" />
             </button>
             <Link 
-              href="#" 
+              href="/tickets" 
               className="hidden sm:inline-flex items-center justify-center px-6 py-2 border border-primary text-primary font-bold text-xs uppercase tracking-widest hover:bg-primary hover:text-background transition-all"
             >
               {t('tickets')}

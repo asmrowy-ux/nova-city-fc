@@ -1,32 +1,36 @@
 import { type SchemaTypeDefinition } from 'sanity'
 import { postType } from './post'
 import { matchType } from './match'
+import { sponsorType } from './sponsor'
 import { playerType } from './player'
 import { staffType } from './staff'
-import { sponsorType } from './sponsor'
-import { leagueTableType } from './leagueTable'
-import { siteSettingsType } from './siteSettings'
+import { jobOfferType } from './jobOffer'
 import { clubHistoryType } from './clubHistory'
 import { clubArticleType } from './clubArticle'
-import { stadiumType } from './stadium'
+import { leagueTableType } from './leagueTable'
+import { siteSettingsType } from './siteSettings'
 import { contactType } from './contact'
-import { jobOfferType } from './jobOffer'
+import { stadiumType } from './stadium'
 import { legalPageType } from './legalPage'
+import { productType } from './product'
+import { ticketType } from './ticket'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     postType,
-    matchType,
+    matchType, 
+    sponsorType, 
     playerType,
     staffType,
-    sponsorType,
-    leagueTableType,
-    siteSettingsType,
+    jobOfferType,
     clubHistoryType,
     clubArticleType,
-    stadiumType,
+    leagueTableType,
+    siteSettingsType,
     contactType,
-    jobOfferType,
+    stadiumType,
     legalPageType,
+    productType,
+    ticketType,
   ],
 }
