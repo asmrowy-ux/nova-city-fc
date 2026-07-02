@@ -5,10 +5,13 @@ import { Link, usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 
 import { ThemeToggle } from "./ThemeToggle";
+import { useCart } from "./CartContext";
+import CartDrawer from "./CartDrawer";
 
 export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: string, title?: string, logoSize?: number }) {
   const t = useTranslations("Navbar");
   const pathname = usePathname();
+  const { cartCount, setIsCartOpen } = useCart();
 
   const navLinks: { key: string; href: string }[] = [
     { key: 'news', href: '/news' },
@@ -101,8 +104,16 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
             <button className="text-foreground hover:text-primary transition-colors">
               <Search className="w-5 h-5" />
             </button>
-            <button className="text-foreground hover:text-primary transition-colors">
+            <button 
+              onClick={() => setIsCartOpen(true)}
+              className="relative text-foreground hover:text-primary transition-colors"
+            >
               <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-background text-[10px] font-black w-4 h-4 flex items-center justify-center rounded-full">
+                  {cartCount}
+                </span>
+              )}
             </button>
             <Link 
               href="/tickets" 
@@ -116,6 +127,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
           </div>
         </div>
       </div>
+      <CartDrawer />
     </nav>
   );
 }

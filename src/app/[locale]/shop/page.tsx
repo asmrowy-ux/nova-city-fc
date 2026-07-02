@@ -84,12 +84,12 @@ export default async function ShopPage() {
                       <span className="text-2xl font-black text-foreground">
                         {product.price.toFixed(2)} PLN
                       </span>
-                      <button 
-                        disabled={!product.inStock}
-                        className="bg-primary text-background font-bold uppercase tracking-widest text-xs px-6 py-3 rounded-md hover:bg-foreground hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      <Link 
+                        href={`/shop/${product.slug.current}`}
+                        className="bg-primary text-background font-bold uppercase tracking-widest text-xs px-6 py-3 rounded-md hover:bg-foreground hover:text-background transition-colors text-center"
                       >
-                        {product.inStock ? 'Kup Teraz' : 'Niedostępne'}
-                      </button>
+                        Zobacz szczegóły
+                      </Link>
                     </div>
                   </div>
                 </div>

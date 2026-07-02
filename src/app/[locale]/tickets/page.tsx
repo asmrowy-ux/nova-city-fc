@@ -91,13 +91,13 @@ export default async function TicketsPage() {
                       <span className="text-3xl font-black text-foreground">
                         {ticket.price.toFixed(2)} PLN
                       </span>
-                      <button 
-                        disabled={!ticket.isAvailable}
-                        className="bg-primary text-background font-bold uppercase tracking-widest text-xs px-6 py-4 rounded-md hover:bg-foreground hover:text-background transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                      <Link 
+                        href={`/tickets/${ticket.slug.current}`}
+                        className="bg-primary text-background font-bold uppercase tracking-widest text-xs px-6 py-4 rounded-md hover:bg-foreground hover:text-background transition-colors flex items-center gap-2"
                       >
                         <Ticket className="w-4 h-4" />
-                        {ticket.isAvailable ? 'Kup Bilet' : 'Wyprzedane'}
-                      </button>
+                        Szczegóły
+                      </Link>
                     </div>
                   </div>
                 </div>

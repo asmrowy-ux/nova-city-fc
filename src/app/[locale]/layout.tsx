@@ -39,6 +39,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from '@/components/CartContext';
 
 export default async function RootLayout({
   children,
@@ -59,7 +60,9 @@ export default async function RootLayout({
       <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-black">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-            {children}
+            <CartProvider>
+              {children}
+            </CartProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

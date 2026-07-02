@@ -5,9 +5,12 @@ import Footer from "@/components/Footer";
 import { Link } from "@/i18n/routing";
 import { ChevronRight } from "lucide-react";
 
-export default async function LegalPage({ params }: { params: { slug: string } }) {
+export default async function LegalPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+
   const [pageData, settings] = await Promise.all([
-    client.fetch(`*[_type == "legalPage" && slug.current == $slug][0]`, { slug: params.slug }),
+    client.fetch(`*[_type == "legalPage" && slug.current == $slug][0]`, { slug }),
     client.fetch(`*[_type == "siteSettings"][0]{ title, logo { asset { _ref } } }`)
   ]);
 
