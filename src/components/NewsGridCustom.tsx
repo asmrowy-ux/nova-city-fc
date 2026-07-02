@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
 
-export default function NewsGridCustom({ posts = [] }: { posts: any[] }) {
+export default function NewsGridCustom({ posts = [], clubName = '', logoRef = '' }: { posts: any[], clubName?: string, logoRef?: string }) {
   if (!posts || posts.length === 0) return null;
 
   const mainPost = posts[0];
@@ -13,6 +13,17 @@ export default function NewsGridCustom({ posts = [] }: { posts: any[] }) {
   }
 
   const mainImageUrl = mainPost.mainImage?.asset?._ref ? getImageUrl(mainPost.mainImage.asset._ref) : '';
+  const fallbackLogoUrl = getImageUrl(logoRef);
+
+  const renderFallback = () => (
+    <div className="w-full h-full bg-[#1a1a1a] flex items-center justify-center p-8">
+      {fallbackLogoUrl ? (
+        <img src={fallbackLogoUrl} alt={clubName} className="w-24 h-24 sm:w-32 sm:h-32 object-contain opacity-50 drop-shadow-2xl" />
+      ) : (
+        <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center font-bold text-primary opacity-50">NC</div>
+      )}
+    </div>
+  );
 
   return (
     <section className="py-20 bg-[#0a0a0a]">
@@ -30,7 +41,7 @@ export default function NewsGridCustom({ posts = [] }: { posts: any[] }) {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
-                <div className="w-full h-full bg-secondary" />
+                renderFallback()
               )}
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
@@ -69,7 +80,7 @@ export default function NewsGridCustom({ posts = [] }: { posts: any[] }) {
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full bg-secondary" />
+                      renderFallback()
                     )}
                   </div>
                   
