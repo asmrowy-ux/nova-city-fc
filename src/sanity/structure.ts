@@ -62,4 +62,5 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('staff').title('🏋️ Coaching Staff'),
       S.divider(),
       S.documentTypeListItem('sponsor').title('🤝 Sponsors & Partners'),
+      S.documentTypeListItem('legalPage').title('⚖️ Strony Prawne'),
     ])

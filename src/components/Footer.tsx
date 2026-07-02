@@ -109,9 +109,9 @@ export default async function Footer() {
         <div className="mt-8 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 font-medium">
           <p>&copy; {new Date().getFullYear()} {t('rights', { clubName })}</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <Link href="#" className="hover:text-foreground transition-colors">{t('privacy')}</Link>
-            <Link href="#" className="hover:text-foreground transition-colors">{t('terms')}</Link>
-            <Link href="#" className="hover:text-foreground transition-colors">{t('cookies')}</Link>
+            <Link href="/legal/privacy" className="hover:text-foreground transition-colors">{t('privacy')}</Link>
+            <Link href="/legal/terms" className="hover:text-foreground transition-colors">{t('terms')}</Link>
+            <Link href="/legal/cookies" className="hover:text-foreground transition-colors">{t('cookies')}</Link>
           </div>
         </div>
       </div>

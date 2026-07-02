@@ -11,6 +11,7 @@ import { clubArticleType } from './clubArticle'
 import { stadiumType } from './stadium'
 import { contactType } from './contact'
 import { jobOfferType } from './jobOffer'
+import { legalPageType } from './legalPage'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -26,5 +27,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     stadiumType,
     contactType,
     jobOfferType,
+    legalPageType,
   ],
 }
