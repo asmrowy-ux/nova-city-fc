@@ -12,17 +12,35 @@ function getImageUrl(ref: string) {
   return `https://cdn.sanity.io/images/3kzdw0qu/production/${ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}`;
 }
 
-export default function SponsorCarousel({ sponsors }: { sponsors: Sponsor[] }) {
-  if (!sponsors || sponsors.length === 0) return null;
+import { Leaf, Zap, Landmark, Ship } from "lucide-react";
 
-  // Multiply sponsors to ensure they take up a good amount of width
-  const multiplied = Array(5).fill(sponsors).flat();
+export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
+  const hasSanitySponsors = sponsors && sponsors.length > 0;
 
-  const renderSponsors = (keyPrefix: string) => (
-    multiplied.map((sponsor, i) => {
-      const logoUrl = getImageUrl(sponsor.logo?.asset?._ref || '');
-      const inner = (
-        <div className="flex-shrink-0 h-10 w-32 flex items-center justify-center opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500">
+  const mockSponsors = [
+    { name: "GREEN TECH", Icon: Leaf },
+    { name: "NOVA ENERGY", Icon: Zap },
+    { name: "CITY BANK", Icon: Landmark },
+    { name: "BALTIC LOGISTICS", Icon: Ship },
+  ];
+
+  const renderMockSponsors = (keyPrefix: string) => {
+    const multiplied = Array(3).fill(mockSponsors).flat();
+    return multiplied.map((sponsor, i) => (
+      <div key={`${keyPrefix}-${i}`} className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300 mx-8">
+        <sponsor.Icon className="w-8 h-8 text-white" />
+        <span className="text-white font-bold tracking-widest text-lg whitespace-nowrap">{sponsor.name}</span>
+      </div>
+    ));
+  };
+
+  const renderSanitySponsors = (keyPrefix: string) => {
+    const multiplied = Array(5).fill(sponsors).flat();
+    return multiplied.map((sponsor, i) => {
+      const ref = sponsor?.logo?.asset?._ref || '';
+      const logoUrl = ref ? `https://cdn.sanity.io/images/3kzdw0qu/production/${ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}` : '';
+      return (
+        <div key={`${keyPrefix}-${sponsor._id}-${i}`} className="flex-shrink-0 h-10 w-32 flex items-center justify-center opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 mx-8">
           {logoUrl ? (
             <img src={logoUrl} alt={sponsor.name} className="max-h-10 max-w-[120px] object-contain" />
           ) : (
@@ -30,31 +48,25 @@ export default function SponsorCarousel({ sponsors }: { sponsors: Sponsor[] }) {
           )}
         </div>
       );
-
-      if (sponsor.url) {
-        return <a key={`${keyPrefix}-${sponsor._id}-${i}`} href={sponsor.url} target="_blank" rel="noopener noreferrer">{inner}</a>;
-      }
-      return <div key={`${keyPrefix}-${sponsor._id}-${i}`}>{inner}</div>;
-    })
-  );
+    });
+  };
 
   return (
-    <div className="pt-10 pb-8 border-y border-white/10 overflow-hidden relative flex flex-col items-center">
-      <h3 className="text-xl md:text-2xl font-black tracking-[0.3em] uppercase mb-10 bg-gradient-to-r from-yellow-400 via-white to-yellow-400 bg-[length:200%_auto] animate-gradient text-transparent bg-clip-text">
-        Sponsorzy
+    <div className="pt-6 pb-6 overflow-hidden relative flex flex-col items-center">
+      <h3 className="text-lg font-bold tracking-[0.1em] text-primary mb-10 uppercase">
+        SPONSORZY
       </h3>
 
       {/* Gradient edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none mt-16" />
-      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none mt-16" />
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-secondary to-transparent z-10 pointer-events-none mt-16" />
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-secondary to-transparent z-10 pointer-events-none mt-16" />
 
-      {/* Wrapper that is exactly twice the width of one group */}
       <div className="flex w-max animate-scroll hover:[animation-play-state:paused]">
-        <div className="flex gap-16 px-8">
-          {renderSponsors('group1')}
+        <div className="flex px-4">
+          {hasSanitySponsors ? renderSanitySponsors('g1') : renderMockSponsors('g1')}
         </div>
-        <div className="flex gap-16 px-8" aria-hidden="true">
-          {renderSponsors('group2')}
+        <div className="flex px-4" aria-hidden="true">
+          {hasSanitySponsors ? renderSanitySponsors('g2') : renderMockSponsors('g2')}
         </div>
       </div>
 
@@ -63,15 +75,8 @@ export default function SponsorCarousel({ sponsors }: { sponsors: Sponsor[] }) {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
-        }
         .animate-scroll {
-          animation: scroll 60s linear infinite;
-        }
-        .animate-gradient {
-          animation: gradient 4s linear infinite;
+          animation: scroll 40s linear infinite;
         }
       `}</style>
     </div>
