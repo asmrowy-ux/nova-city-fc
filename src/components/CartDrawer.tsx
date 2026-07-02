@@ -16,8 +16,8 @@ export default function CartDrawer() {
         onClick={() => setIsCartOpen(false)}
       />
       
-      <div className="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-secondary border-l border-border z-[101] flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
-        <div className="flex items-center justify-between p-6 border-b border-border">
+      <div className="fixed top-0 right-0 h-[100dvh] w-full sm:w-[450px] max-w-[100vw] bg-secondary border-l border-border z-[101] flex flex-col shadow-2xl animate-in slide-in-from-right duration-300">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border shrink-0">
           <div className="flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-primary" />
             <h2 className="text-xl font-black uppercase tracking-widest">Twój Koszyk</h2>

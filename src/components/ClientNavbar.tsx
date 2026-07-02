@@ -54,9 +54,25 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
             <Link href="/news" className="text-[11px] font-bold tracking-[0.1em] uppercase text-foreground/80 hover:text-primary transition-colors">
               AKTUALNOŚCI
             </Link>
-            <Link href="/team" className="text-[11px] font-bold tracking-[0.1em] uppercase text-foreground/80 hover:text-primary transition-colors">
-              DRUŻYNY
-            </Link>
+            
+            {/* Drużyny dropdown */}
+            <div className="group relative">
+              <button className="flex items-center gap-1 text-[11px] font-bold tracking-[0.1em] uppercase text-foreground/80 hover:text-primary transition-colors">
+                DRUŻYNY
+                <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
+              </button>
+              <div className="absolute top-full mt-6 left-1/2 -translate-x-1/2 bg-secondary border border-border rounded-lg overflow-hidden shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px]">
+                <Link href="/team" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
+                  Pierwsza Drużyna
+                </Link>
+                <Link href="/women" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
+                  Drużyna Kobiet
+                </Link>
+                <Link href="/academy" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
+                  Akademia
+                </Link>
+              </div>
+            </div>
             
             {/* Klub dropdown */}
             <div className="group relative">
@@ -70,9 +86,6 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
                 </Link>
                 <Link href="/hall-of-fame" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
                   ⭐ Hall of Fame
-                </Link>
-                <Link href="/team" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
-                  👥 Pierwsza Drużyna
                 </Link>
                 <Link href="/staff" className="block px-4 py-3 text-xs font-bold uppercase tracking-[0.1em] text-foreground/80 hover:bg-primary hover:text-background transition-colors border-b border-border">
                   🏋️ Sztab Trenerski
@@ -123,7 +136,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize }: { logoUrl?: s
               )}
             </button>
             <Link 
-              href="/join" 
+              href="/contact" 
               className="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-primary text-background font-bold text-[11px] uppercase tracking-widest hover:bg-foreground hover:text-background transition-all rounded-sm"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">

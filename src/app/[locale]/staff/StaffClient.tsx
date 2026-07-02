@@ -41,7 +41,7 @@ export default function StaffClient({ staffMembers, clubName, clubLogoUrl }: { s
                     <img 
                       src={imgUrl} 
                       alt={staff.name} 
-                      className="absolute bottom-0 w-[90%] h-[90%] object-cover object-top mask-image-bottom transition-transform duration-500 group-hover:scale-110" 
+                      className="absolute bottom-0 w-full h-full object-contain object-bottom mask-image-bottom transition-transform duration-500 group-hover:scale-110" 
                       style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)' }}
                     />
                     <div className="absolute inset-0 bg-gradient-animated opacity-20 pointer-events-none z-10" style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 15%)' }} />
