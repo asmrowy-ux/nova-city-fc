@@ -4,6 +4,7 @@ interface PlayerEntry {
   name?: string;
   number?: number;
   customName?: string;
+  position?: string;
 }
 
 interface LineupData {
