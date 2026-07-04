@@ -11,6 +11,8 @@ export const structure: StructureResolver = (S) =>
           S.component(Manual).title('Instrukcja Obsługi')
         ),
       S.divider(),
+      S.documentTypeListItem('customPage').title('📄 Własne Podstrony (Custom Pages)'),
+      S.divider(),
       S.listItem()
         .title('⚙️ Ustawienia Główne (Site Settings)')
         .child(
