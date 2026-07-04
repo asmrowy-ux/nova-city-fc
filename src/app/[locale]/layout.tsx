@@ -62,6 +62,10 @@ export default async function RootLayout({
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{
     decorationsEnabled,
     decorationsColor,
+    primaryColor,
+    backgroundColor,
+    secondaryColor,
+    foregroundColor,
     mainMenu[] {
       _type,
       title,
@@ -80,6 +84,12 @@ export default async function RootLayout({
   const showDecorations = settings?.decorationsEnabled !== false; // default true
   const decorationColor = settings?.decorationsColor || '#FBBF24'; // default gold
 
+  // Theme settings
+  const themePrimary = settings?.primaryColor || '#d4af37';
+  const themeBg = settings?.backgroundColor || '#050505';
+  const themeSecondary = settings?.secondaryColor || '#1a1a1a';
+  const themeFg = settings?.foregroundColor || '#f5f5f5';
+
   return (
     <html lang={locale} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
       <body 
@@ -87,6 +97,10 @@ export default async function RootLayout({
         style={{
           '--decoration-color': decorationColor,
           '--decoration-display': showDecorations ? 'block' : 'none',
+          '--theme-primary': themePrimary,
+          '--theme-bg': themeBg,
+          '--theme-secondary': themeSecondary,
+          '--theme-fg': themeFg,
         } as React.CSSProperties}
       >
         <NextIntlClientProvider messages={messages}>

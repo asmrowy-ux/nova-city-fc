@@ -110,7 +110,7 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
 
         {/* Right Column: "KLUB" Menu Card */}
         <div className="flex justify-start lg:justify-end pt-12">
-          <div className="relative bg-[#0d0d0d]/95 backdrop-blur-xl border rounded-[40px] p-8 w-full max-w-[400px] h-[640px] shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col" style={{ borderColor: 'color-mix(in srgb, var(--decoration-color) 50%, transparent)' }}>
+          <div className="relative bg-secondary/95 backdrop-blur-xl border rounded-[40px] p-8 w-full max-w-[400px] h-[640px] shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col" style={{ borderColor: 'color-mix(in srgb, var(--decoration-color) 50%, transparent)' }}>
             
             <div style={{ display: 'var(--decoration-display)' }}>
               {/* Top Right Accents */}
@@ -152,17 +152,17 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
               </svg>
 
               <div className="flex flex-col h-full justify-evenly px-4 py-2 relative z-20">
-                <Link href="/history" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                <Link href="/history" className="flex items-center justify-between group px-4 py-3 hover:bg-foreground/5 transition-all cursor-pointer rounded-r-lg">
                   <div className="flex items-center gap-5">
                     <Trophy className="w-5 h-5 text-primary" />
-                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Historia</span>
+                    <span className="text-foreground font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Historia</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
                 
                 <div className="h-[1px] w-[95%] self-end bg-primary/20" />
                 
-                <Link href="/stadium" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                <Link href="/stadium" className="flex items-center justify-between group px-4 py-3 hover:bg-foreground/5 transition-all cursor-pointer rounded-r-lg">
                   <div className="flex items-center gap-5">
                     <div className="w-5 h-5 flex items-center justify-center">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-primary">
@@ -173,39 +173,39 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
                         <path d="M16 10.5v2" />
                       </svg>
                     </div>
-                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Stadion</span>
+                    <span className="text-foreground font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Stadion</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
 
                 <div className="h-[1px] w-[95%] self-end bg-primary/20" />
                 
-                <Link href="/board" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                <Link href="/board" className="flex items-center justify-between group px-4 py-3 hover:bg-foreground/5 transition-all cursor-pointer rounded-r-lg">
                   <div className="flex items-center gap-5">
                     <Users className="w-5 h-5 text-primary" />
-                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Zarząd</span>
+                    <span className="text-foreground font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Zarząd</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
 
                 <div className="h-[1px] w-[95%] self-end bg-primary/20" />
                 
-                <Link href="/careers" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                <Link href="/careers" className="flex items-center justify-between group px-4 py-3 hover:bg-foreground/5 transition-all cursor-pointer rounded-r-lg">
                   <div className="flex items-center gap-5">
                     <Briefcase className="w-5 h-5 text-primary" />
-                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kariera</span>
+                    <span className="text-foreground font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kariera</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
 
                 <div className="h-[1px] w-[95%] self-end bg-primary/20" />
                 
-                <Link href="/contact" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                <Link href="/contact" className="flex items-center justify-between group px-4 py-3 hover:bg-foreground/5 transition-all cursor-pointer rounded-r-lg">
                   <div className="flex items-center gap-5">
                     <Mail className="w-5 h-5 text-primary" />
-                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kontakt</span>
+                    <span className="text-foreground font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kontakt</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-foreground/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
                 </Link>
               </div>
             </div>

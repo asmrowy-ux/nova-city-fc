@@ -27,13 +27,13 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
   );
 
   return (
-    <section className="py-20 bg-[#0a0a0a]">
+    <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-primary font-black text-2xl uppercase tracking-widest mb-12">AKTUALNOŚCI</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Main Big News Card */}
-          <Link href={`/news/${mainPost.slug?.current}`} className="group relative rounded-3xl overflow-hidden min-h-[400px] border border-gray-800 flex flex-col justify-end p-8 cursor-pointer">
+          <Link href={`/news/${mainPost.slug?.current}`} className="group relative rounded-3xl overflow-hidden min-h-[400px] border border-border flex flex-col justify-end p-8 cursor-pointer">
             <div className="absolute inset-0 z-0">
               {mainImageUrl ? (
                 <>
@@ -56,15 +56,15 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
                 AKTUALNOŚĆ
               </div>
               
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">
+              <div className="text-foreground/50 text-xs font-bold uppercase tracking-widest mb-4">
                 {new Date(mainPost.publishedAt).toLocaleDateString('pl-PL', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '')}
               </div>
               
-              <h3 className="text-white font-black text-3xl md:text-4xl uppercase tracking-tight mb-6 line-clamp-2">
+              <h3 className="text-foreground font-black text-3xl md:text-4xl uppercase tracking-tight mb-6 line-clamp-2">
                 {mainPost.title}
               </h3>
               
-              <div className="text-primary font-bold text-sm tracking-widest flex items-center gap-2 group-hover:text-white transition-colors">
+              <div className="text-primary font-bold text-sm tracking-widest flex items-center gap-2 group-hover:text-foreground transition-colors">
                 Czytaj więcej <ArrowRight className="w-4 h-4" />
               </div>
             </div>
@@ -75,7 +75,7 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
             {sidePosts.map((post, index) => {
               const imageUrl = post.mainImage?.asset?._ref ? getImageUrl(post.mainImage.asset._ref) : '';
               return (
-                <Link key={post._id || index} href={`/news/${post.slug?.current}`} className="group flex flex-col sm:flex-row bg-[#121212] border border-gray-800 rounded-3xl overflow-hidden cursor-pointer hover:bg-[#1a1a1a] transition-colors flex-1">
+                <Link key={post._id || index} href={`/news/${post.slug?.current}`} className="group flex flex-col sm:flex-row bg-secondary border border-border rounded-3xl overflow-hidden cursor-pointer hover:bg-secondary/80 transition-colors flex-1">
                   <div className="sm:w-2/5 h-48 sm:h-auto relative overflow-hidden shrink-0">
                     {imageUrl ? (
                       <>
@@ -92,10 +92,10 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
                   </div>
                   
                   <div className="p-8 flex flex-col justify-center flex-1 relative">
-                    <h3 className="text-white font-bold text-xl leading-snug mb-4 pr-6">
+                    <h3 className="text-foreground font-bold text-xl leading-snug mb-4 pr-6">
                       {post.title}
                     </h3>
-                    <div className="text-gray-500 text-xs font-bold uppercase tracking-widest">
+                    <div className="text-foreground/50 text-xs font-bold uppercase tracking-widest">
                       {new Date(post.publishedAt).toLocaleDateString('pl-PL', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '')}
                     </div>
                     <ChevronRight className="absolute right-6 top-1/2 -translate-y-1/2 w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity -translate-x-4 group-hover:translate-x-0 transform duration-300" />

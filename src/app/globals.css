@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: #d4af37;
-  --color-primary-dark: #b8962e;
-  --color-secondary: var(--secondary);
-  --color-border: var(--border);
+  --color-background: var(--theme-bg, #050505);
+  --color-foreground: var(--theme-fg, #f5f5f5);
+  --color-primary: var(--theme-primary, #d4af37);
+  --color-primary-dark: color-mix(in srgb, var(--theme-primary) 85%, black);
+  --color-secondary: var(--theme-secondary, #1a1a1a);
+  --color-border: color-mix(in srgb, var(--theme-fg) 10%, transparent);
   --color-accent: #00ff88;
   
   --font-sans: var(--font-inter);
 }
 
+/* Base definitions are managed dynamically via layout.tsx body style injections now, but fallback remains */
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
@@ -20,9 +21,9 @@
 }
 
 .dark {
-  --background: #050505;
-  --foreground: #f5f5f5;
-  --secondary: #1a1a1a;
+  --background: var(--theme-bg, #050505);
+  --foreground: var(--theme-fg, #f5f5f5);
+  --secondary: var(--theme-secondary, #1a1a1a);
   --border: rgba(255, 255, 255, 0.1);
 }
 
@@ -36,14 +37,14 @@ body {
 
 @layer utilities {
   .text-glow {
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    text-shadow: 0 0 15px color-mix(in srgb, var(--theme-primary) 40%, transparent);
   }
   .bg-glow {
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 30px color-mix(in srgb, var(--theme-primary) 10%, transparent);
   }
   
   .bg-gradient-animated {
-    background: linear-gradient(-45deg, #ffffff, #d4af37, #0a0a0a, #d4af37, #ffffff);
+    background: linear-gradient(-45deg, var(--theme-fg), var(--theme-primary), var(--theme-bg), var(--theme-primary), var(--theme-fg));
     background-size: 400% 400%;
     animation: gradient-xy 10s ease infinite;
   }
