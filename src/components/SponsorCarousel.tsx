@@ -40,11 +40,11 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
       const ref = sponsor?.logo?.asset?._ref || '';
       const logoUrl = ref ? `https://cdn.sanity.io/images/3kzdw0qu/production/${ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}` : '';
       return (
-        <div key={`${keyPrefix}-${sponsor._id}-${i}`} className="flex-shrink-0 h-10 w-32 flex items-center justify-center opacity-40 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 mx-8">
+        <div key={`${keyPrefix}-${sponsor._id}-${i}`} className="flex-shrink-0 h-16 w-48 flex items-center justify-center opacity-70 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-500 mx-8">
           {logoUrl ? (
-            <img src={logoUrl} alt={sponsor.name} className="max-h-10 max-w-[120px] object-contain" />
+            <img src={logoUrl} alt={sponsor.name} className="max-h-16 max-w-[180px] object-contain drop-shadow-md" />
           ) : (
-            <span className="text-lg font-black tracking-widest uppercase text-foreground whitespace-nowrap">{sponsor.name}</span>
+            <span className="text-2xl font-black tracking-widest uppercase text-foreground whitespace-nowrap">{sponsor.name}</span>
           )}
         </div>
       );

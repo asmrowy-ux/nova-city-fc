@@ -64,6 +64,8 @@ export default async function RootLayout({
     decorationsColor,
     primaryColor,
     backgroundColor,
+    headerBackgroundColor,
+    footerBackgroundColor,
     secondaryColor,
     foregroundColor,
     mainMenu[] {
@@ -87,22 +89,32 @@ export default async function RootLayout({
   // Theme settings
   const themePrimary = settings?.primaryColor || '#d4af37';
   const themeBg = settings?.backgroundColor || '#050505';
+  const themeHeaderBg = settings?.headerBackgroundColor || '#050505';
+  const themeFooterBg = settings?.footerBackgroundColor || '#000000';
   const themeSecondary = settings?.secondaryColor || '#1a1a1a';
   const themeFg = settings?.foregroundColor || '#f5f5f5';
 
   return (
     <html lang={locale} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
       <body 
-        className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-black"
+        className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-black relative"
         style={{
           '--decoration-color': decorationColor,
           '--decoration-display': showDecorations ? 'block' : 'none',
           '--theme-primary': themePrimary,
           '--theme-bg': themeBg,
+          '--theme-header-bg': themeHeaderBg,
+          '--theme-footer-bg': themeFooterBg,
           '--theme-secondary': themeSecondary,
           '--theme-fg': themeFg,
         } as React.CSSProperties}
       >
+        {/* Global Diagonal Accents for all pages */}
+        <div className="fixed top-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0" style={{ display: 'var(--decoration-display)' }}>
+          <div className="absolute w-[500px] h-[2px] -rotate-45 top-[100px] -left-[150px] opacity-60 shadow-[0_0_10px_var(--decoration-color)]" style={{ backgroundColor: 'var(--decoration-color)' }} />
+          <div className="absolute w-[500px] h-[1px] -rotate-45 top-[130px] -left-[120px] opacity-30" style={{ backgroundColor: 'var(--decoration-color)' }} />
+        </div>
+
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <CartProvider>

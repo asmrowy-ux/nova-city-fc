@@ -49,16 +49,6 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
       <div className="absolute inset-0 z-0 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-background via-background/50 to-transparent pointer-events-none" />
 
-
-      {/* Global Diagonal Accents */}
-      <div className="absolute top-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0" style={{ display: 'var(--decoration-display)' }}>
-        <div className="absolute w-[500px] h-[2px] -rotate-45 top-[100px] -left-[150px] opacity-60 shadow-[0_0_10px_rgba(251,191,36,0.5)]" style={{ backgroundColor: 'var(--decoration-color)' }} />
-        <div className="absolute w-[500px] h-[1px] -rotate-45 top-[130px] -left-[120px] opacity-30" style={{ backgroundColor: 'var(--decoration-color)' }} />
-      </div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0" style={{ display: 'var(--decoration-display)' }}>
-        <div className="absolute w-[500px] h-[2px] -rotate-45 bottom-[100px] -left-[150px] opacity-60 shadow-[0_0_10px_rgba(251,191,36,0.5)]" style={{ backgroundColor: 'var(--decoration-color)' }} />
-      </div>
-
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-20">
         

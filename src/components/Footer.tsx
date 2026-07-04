@@ -58,8 +58,14 @@ export default async function Footer() {
         <SponsorCarousel sponsors={sponsors} />
       </div>
 
-      <footer className="bg-secondary pt-20 pb-10 border-t border-border relative overflow-hidden">
+      <footer className="pt-20 pb-10 border-t border-border relative overflow-hidden" style={{ backgroundColor: 'var(--theme-footer-bg)' }}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+        
+        {/* Footer Decorative Accents */}
+        <div className="absolute bottom-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0" style={{ display: 'var(--decoration-display)' }}>
+          <div className="absolute w-[500px] h-[2px] -rotate-45 bottom-[50px] -left-[150px] opacity-60 shadow-[0_0_10px_var(--decoration-color)]" style={{ backgroundColor: 'var(--decoration-color)' }} />
+          <div className="absolute w-[500px] h-[4px] -rotate-45 bottom-[80px] -left-[180px] opacity-20" style={{ backgroundColor: 'var(--decoration-color)' }} />
+        </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">

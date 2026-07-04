@@ -18,7 +18,10 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
   const titleRest = titleParts.slice(1).join(' ') || 'GDYNIA';
 
   return (
-    <nav className="fixed top-0 w-full z-50 transition-all duration-300 bg-background/95 backdrop-blur-sm border-b border-border">
+    <nav 
+      className="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-sm border-b border-border"
+      style={{ backgroundColor: 'color-mix(in srgb, var(--theme-header-bg) 95%, transparent)' }}
+    >
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4 min-h-[5rem] gap-4">
           

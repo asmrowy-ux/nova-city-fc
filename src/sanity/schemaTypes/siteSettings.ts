@@ -113,10 +113,26 @@ export const siteSettingsType = defineType({
     }),
     defineField({
       name: 'backgroundColor',
-      title: 'Główny Kolor Tła (Background)',
+      title: 'Główny Kolor Tła Strony',
       type: 'string',
       description: 'Główny kolor tła dla całej strony. Format HEX (np. #0a0a0a dla ciemnego motywu)',
       initialValue: '#0a0a0a',
+      validation: (Rule) => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: 'hex color', invert: false }),
+    }),
+    defineField({
+      name: 'headerBackgroundColor',
+      title: 'Kolor Tła Nawigacji (Header)',
+      type: 'string',
+      description: 'Tło górnego paska nawigacyjnego. Format HEX (np. #000000)',
+      initialValue: '#050505',
+      validation: (Rule) => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: 'hex color', invert: false }),
+    }),
+    defineField({
+      name: 'footerBackgroundColor',
+      title: 'Kolor Tła Stopki',
+      type: 'string',
+      description: 'Tło sekcji ze stopką na samym dole. Format HEX (np. #000000)',
+      initialValue: '#000000',
       validation: (Rule) => Rule.regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, { name: 'hex color', invert: false }),
     }),
     defineField({
