@@ -169,13 +169,18 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
             </button>
             <Link 
               href="/contact" 
-              className="hidden sm:inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-primary text-background font-bold text-[11px] uppercase tracking-widest hover:bg-foreground hover:text-background transition-all rounded-sm"
+              className="hidden sm:inline-flex relative items-center justify-center gap-1.5 px-6 py-2.5 text-primary font-bold text-[11px] uppercase tracking-widest hover:text-background hover:bg-primary transition-all group"
+              style={{
+                clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)'
+              }}
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+              <div className="absolute inset-0 border border-primary pointer-events-none" style={{ clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}></div>
+              <div className="absolute inset-0 bg-primary/10 group-hover:bg-primary transition-colors -z-10"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 z-10">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              DOŁĄCZ DO KLUBU
+              <span className="z-10">DOŁĄCZ DO KLUBU</span>
             </Link>
             <button className="lg:hidden text-foreground">
               <Menu className="w-6 h-6" />

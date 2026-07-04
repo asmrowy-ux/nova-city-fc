@@ -48,12 +48,21 @@ export default function HeroSection({ clubName = '', logoRef = '', description =
       <div className="absolute inset-0 z-0 bg-gradient-to-r from-background via-background/50 to-transparent pointer-events-none" />
 
 
+      {/* Global Diagonal Accents */}
+      <div className="absolute top-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0">
+        <div className="absolute w-[500px] h-[2px] bg-primary -rotate-45 top-[100px] -left-[150px] opacity-60 shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+        <div className="absolute w-[500px] h-[1px] bg-primary -rotate-45 top-[130px] -left-[120px] opacity-30" />
+      </div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 pointer-events-none overflow-hidden z-0">
+        <div className="absolute w-[500px] h-[2px] bg-primary -rotate-45 bottom-[100px] -left-[150px] opacity-60 shadow-[0_0_10px_rgba(251,191,36,0.5)]" />
+      </div>
+
       {/* Main Content */}
       <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center pt-20">
         
         {/* Left Column: Logo, Title, Text, Socials */}
         <div className="flex flex-col items-start pt-12">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6 mb-4">
             {bgLogoUrl && (
               <img src={bgLogoUrl} alt={clubName} className="w-56 h-56 md:w-80 md:h-80 object-contain drop-shadow-2xl" />
             )}
@@ -67,80 +76,134 @@ export default function HeroSection({ clubName = '', logoRef = '', description =
             </div>
           </div>
 
-          <div className="w-20 h-1 bg-primary mb-8 ml-2" />
+          {/* Under-Logo Decorative Line */}
+          <div className="flex items-center mt-2 mb-8 gap-3 ml-2">
+            <div className="flex gap-1.5">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="w-1.5 h-3.5 bg-primary skew-x-[-30deg]"></div>
+              ))}
+            </div>
+            <div className="w-64 h-[2px] bg-primary shadow-[0_0_8px_rgba(251,191,36,0.6)]"></div>
+          </div>
 
-          <p className="text-muted-foreground max-w-lg text-lg leading-relaxed mb-10 font-medium ml-2 whitespace-pre-line">
+          <p className="text-foreground/80 max-w-lg text-lg leading-relaxed mb-10 font-medium ml-2 whitespace-pre-line">
             {displayDescription}
           </p>
 
-          <div className="flex items-center gap-6 ml-2">
-            <a href="#" className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:text-primary text-muted-foreground transition-colors group">
-              <Globe className="w-6 h-6 group-hover:scale-110 transition-transform" />
+          <div className="flex items-center gap-5 ml-2 mt-2">
+            <a href="#" className="w-12 h-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-background text-white transition-colors group shadow-[0_0_10px_rgba(251,191,36,0.15)]">
+              <Globe className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </a>
-            <a href="#" className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:text-primary text-muted-foreground transition-colors group">
-              <FacebookIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            <a href="#" className="w-12 h-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-background text-white transition-colors group shadow-[0_0_10px_rgba(251,191,36,0.15)]">
+              <FacebookIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </a>
-            <a href="#" className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:text-primary text-muted-foreground transition-colors group">
-              <InstagramIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            <a href="#" className="w-12 h-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-background text-white transition-colors group shadow-[0_0_10px_rgba(251,191,36,0.15)]">
+              <InstagramIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </a>
-            <a href="#" className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:text-primary text-muted-foreground transition-colors group">
-              <YoutubeIcon className="w-6 h-6 group-hover:scale-110 transition-transform" />
+            <a href="#" className="w-12 h-12 rounded-full border border-primary flex items-center justify-center hover:bg-primary hover:text-background text-white transition-colors group shadow-[0_0_10px_rgba(251,191,36,0.15)]">
+              <YoutubeIcon className="w-5 h-5 group-hover:scale-110 transition-transform" />
             </a>
           </div>
         </div>
 
         {/* Right Column: "KLUB" Menu Card */}
         <div className="flex justify-start lg:justify-end pt-12">
-          <div className="bg-secondary/80 backdrop-blur-2xl border border-border rounded-3xl p-8 w-full max-w-[420px] shadow-2xl">
-            <h2 className="text-primary font-black text-xl md:text-2xl uppercase tracking-widest mb-8 px-2">KLUB</h2>
+          <div className="relative bg-[#0d0d0d]/95 backdrop-blur-xl border border-primary/50 rounded-[40px] p-8 w-full max-w-[400px] h-[640px] shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col">
             
-            <div className="flex flex-col gap-2">
-              <Link href="/history" className="flex items-center justify-between group px-4 py-5 border border-transparent hover:border-border hover:bg-primary/5 rounded-2xl transition-all cursor-pointer">
-                <div className="flex items-center gap-6">
-                  <Trophy className="w-6 h-6 text-primary" />
-                  <span className="text-foreground/80 font-semibold text-lg md:text-xl tracking-wide group-hover:text-foreground transition-colors">Historia</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-              
-              <Link href="/stadium" className="flex items-center justify-between group px-4 py-5 border border-transparent hover:border-border hover:bg-primary/5 rounded-2xl transition-all cursor-pointer">
-                <div className="flex items-center gap-6">
-                  <div className="w-6 h-6 flex items-center justify-center">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6 text-primary">
-                      <path d="M4 14.5C4 14.5 9 12 12 12C15 12 20 14.5 20 14.5" />
-                      <path d="M20 14.5V19C20 19 15 22 12 22C9 22 4 19 4 19V14.5" />
-                      <path d="M12 12V4" />
-                      <path d="M8 6H16" />
-                    </svg>
+            {/* Top Right Accents */}
+            <div className="absolute -top-4 -right-4 w-40 h-40 pointer-events-none">
+              <div className="absolute w-[120px] h-[1px] bg-primary -rotate-45 top-[40px] left-[20px]" />
+              <div className="absolute w-[140px] h-[4px] bg-primary -rotate-45 top-[60px] left-[10px] shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+              <div className="absolute w-[100px] h-[10px] bg-primary -rotate-45 top-[85px] left-[40px]" />
+              <div className="absolute w-[40px] h-[2px] bg-primary -rotate-45 top-[110px] left-[90px]" />
+            </div>
+            
+            {/* Bottom Right Accents */}
+            <div className="absolute -bottom-4 -right-4 w-48 h-48 pointer-events-none">
+              <div className="absolute w-[160px] h-[2px] bg-primary -rotate-45 top-[100px] left-[10px]" />
+              <div className="absolute w-[140px] h-[6px] bg-primary -rotate-45 top-[120px] left-[30px] shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
+              <div className="absolute w-[100px] h-[14px] bg-primary -rotate-45 top-[145px] left-[60px]" />
+              <div className="absolute flex gap-1.5 -rotate-45 top-[175px] left-[90px]">
+                {[...Array(6)].map((_, i) => <div key={i} className="w-1.5 h-1.5 bg-primary/80 rotate-45 rounded-sm" />)}
+              </div>
+            </div>
+            
+            {/* Left side dots */}
+            <div className="absolute left-6 top-[35%] flex flex-col gap-2 pointer-events-none">
+              <div className="w-1.5 h-1.5 rounded-[1px] border-[1.5px] border-primary"></div>
+              <div className="w-1.5 h-1.5 rounded-[1px] border-[1.5px] border-primary"></div>
+              <div className="w-1.5 h-1.5 rounded-[1px] border-[1.5px] border-primary"></div>
+              <div className="w-1.5 h-1.5 rounded-[1px] border-[1.5px] border-primary"></div>
+            </div>
+
+            <h2 className="relative z-10 text-primary font-black text-3xl uppercase tracking-widest mt-12 ml-10 mb-8 drop-shadow-md">KLUB</h2>
+            
+            {/* Inner Zig-Zag Container */}
+            <div className="relative z-10 flex-1 mx-4 mb-10 flex flex-col">
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none" viewBox="0 0 100 100">
+                <path 
+                  d="M 10 0 L 100 0 L 100 100 L 0 100 L 0 85 L 8 80 L 0 75 L 0 65 L 8 60 L 0 55 L 0 45 L 8 40 L 0 35 L 0 25 L 8 20 L 0 15 L 0 8 L 8 0 Z" 
+                  stroke="#FBBF24" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke" strokeOpacity="0.8"
+                />
+              </svg>
+
+              <div className="flex flex-col h-full justify-evenly px-4 py-2 relative z-20">
+                <Link href="/history" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                  <div className="flex items-center gap-5">
+                    <Trophy className="w-5 h-5 text-primary" />
+                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Historia</span>
                   </div>
-                  <span className="text-foreground/80 font-semibold text-lg md:text-xl tracking-wide group-hover:text-foreground transition-colors">Stadion</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-              
-              <Link href="/board" className="flex items-center justify-between group px-4 py-5 border border-transparent hover:border-border hover:bg-primary/5 rounded-2xl transition-all cursor-pointer">
-                <div className="flex items-center gap-6">
-                  <Users className="w-6 h-6 text-primary" />
-                  <span className="text-foreground/80 font-semibold text-lg md:text-xl tracking-wide group-hover:text-foreground transition-colors">Zarząd</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-              
-              <Link href="/careers" className="flex items-center justify-between group px-4 py-5 border border-transparent hover:border-border hover:bg-primary/5 rounded-2xl transition-all cursor-pointer">
-                <div className="flex items-center gap-6">
-                  <Briefcase className="w-6 h-6 text-primary" />
-                  <span className="text-foreground/80 font-semibold text-lg md:text-xl tracking-wide group-hover:text-foreground transition-colors">Kariera</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
-              
-              <Link href="/contact" className="flex items-center justify-between group px-4 py-5 border border-transparent hover:border-border hover:bg-primary/5 rounded-2xl transition-all cursor-pointer">
-                <div className="flex items-center gap-6">
-                  <Mail className="w-6 h-6 text-primary" />
-                  <span className="text-foreground/80 font-semibold text-lg md:text-xl tracking-wide group-hover:text-foreground transition-colors">Kontakt</span>
-                </div>
-                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-              </Link>
+                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+                
+                <div className="h-[1px] w-[95%] self-end bg-primary/20" />
+                
+                <Link href="/stadium" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                  <div className="flex items-center gap-5">
+                    <div className="w-5 h-5 flex items-center justify-center">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-primary">
+                        <ellipse cx="12" cy="8" rx="8" ry="3" />
+                        <path d="M4 8v6c0 1.66 3.58 3 8 3s8-1.34 8-3V8" />
+                        <path d="M12 11v3" />
+                        <path d="M8 10.5v2" />
+                        <path d="M16 10.5v2" />
+                      </svg>
+                    </div>
+                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Stadion</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                <div className="h-[1px] w-[95%] self-end bg-primary/20" />
+                
+                <Link href="/board" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                  <div className="flex items-center gap-5">
+                    <Users className="w-5 h-5 text-primary" />
+                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Zarząd</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                <div className="h-[1px] w-[95%] self-end bg-primary/20" />
+                
+                <Link href="/careers" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                  <div className="flex items-center gap-5">
+                    <Briefcase className="w-5 h-5 text-primary" />
+                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kariera</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                <div className="h-[1px] w-[95%] self-end bg-primary/20" />
+                
+                <Link href="/contact" className="flex items-center justify-between group px-4 py-3 hover:bg-white/5 transition-all cursor-pointer rounded-r-lg">
+                  <div className="flex items-center gap-5">
+                    <Mail className="w-5 h-5 text-primary" />
+                    <span className="text-white font-medium text-lg tracking-wide group-hover:text-primary transition-colors">Kontakt</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-white/50 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
