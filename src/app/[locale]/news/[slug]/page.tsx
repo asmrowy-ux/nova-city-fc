@@ -5,11 +5,58 @@ import Footer from "@/components/Footer";
 import { Link } from "@/i18n/routing";
 import { ArrowLeft } from "lucide-react";
 import PhotoGallery from "@/components/PhotoGallery";
+import MatchLineup from "@/components/MatchLineup";
+
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const [post, settings] = await Promise.all([
+    client.fetch(`*[_type == "post" && slug.current == $slug][0]{ title, body, mainImage { asset { _ref } } }`, { slug }),
+    client.fetch(`*[_type == "siteSettings"][0]{ title }`)
+  ]);
+
+  if (!post) return {};
+  
+  const clubName = settings?.title || '';
+  const displayTitle = post.title?.replace(/\[KLUB\]/g, clubName) || '';
+  
+  // Extract a brief description from the body (first block of text)
+  let description = "Przeczytaj najnowsze informacje.";
+  if (post.body && Array.isArray(post.body)) {
+    const firstTextBlock = post.body.find((b: any) => b._type === 'block' && b.children);
+    if (firstTextBlock) {
+      description = firstTextBlock.children.map((c: any) => c.text).join('').substring(0, 160).replace(/\[KLUB\]/g, clubName);
+    }
+  }
+
+  let imageUrl = "";
+  if (post.mainImage?.asset?._ref) {
+    imageUrl = `https://cdn.sanity.io/images/3kzdw0qu/production/${post.mainImage.asset._ref.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}?w=1200&h=630&fit=crop`;
+  }
+
+  return {
+    title: displayTitle,
+    description: description,
+    openGraph: {
+      title: displayTitle,
+      description: description,
+      type: 'article',
+      images: imageUrl ? [{ url: imageUrl }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: displayTitle,
+      description: description,
+      images: imageUrl ? [imageUrl] : [],
+    }
+  };
+}
 
 export default async function NewsArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const [post, settings] = await Promise.all([
+  const [post, settings, defaultLineup] = await Promise.all([
     client.fetch(
       `*[_type == "post" && slug.current == $slug][0]{
         title,
@@ -17,14 +64,62 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
         publishedAt,
         body,
         mainImage { asset { _ref } },
-        gallery[]{ asset { _ref }, caption }
+        gallery[]{ asset { _ref }, caption },
+        showMatchLineup,
+        relatedMatch->{
+          opponent,
+          opponentShort,
+          opponentLogo { asset { _ref } },
+          isHome,
+          useDefaultHomeLineup,
+          homeFormation,
+          awayFormation,
+          lineupHome {
+            starters[] {
+              position, customName, "name": player->name, "number": player->number
+            },
+            bench[] {
+              position, customName, "name": player->name, "number": player->number
+            }
+          },
+          lineupAway {
+            starters[] {
+              position, customName, "name": player->name, "number": player->number
+            },
+            bench[] {
+              position, customName, "name": player->name, "number": player->number
+            }
+          }
+        }
       }`,
       { slug }
     ),
-    client.fetch(`*[_type == "siteSettings"][0]{ title }`)
+    client.fetch(`*[_type == "siteSettings"][0]{ title, logo { asset { _ref } } }`),
+    client.fetch(`*[_type == "defaultLineup"][0]{
+      formation,
+      lineupHome {
+        starters[] {
+          position, customName, "name": player->name, "number": player->number
+        },
+        bench[] {
+          position, customName, "name": player->name, "number": player->number
+        }
+      }
+    }`)
   ]);
 
   if (!post) return notFound();
+
+  // Handle Default Lineup injection for Nova City
+  if (post.relatedMatch?.useDefaultHomeLineup && defaultLineup?.lineupHome) {
+    if (post.relatedMatch.isHome) {
+      post.relatedMatch.lineupHome = defaultLineup.lineupHome;
+      post.relatedMatch.homeFormation = defaultLineup.formation;
+    } else {
+      post.relatedMatch.lineupAway = defaultLineup.lineupHome;
+      post.relatedMatch.awayFormation = defaultLineup.formation;
+    }
+  }
 
   const clubName = settings?.title || '';
 
@@ -109,9 +204,26 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
           })}
         </div>
 
+        {/* Match Lineup */}
+        {post.showMatchLineup && post.relatedMatch && (
+          <div className="mt-16 border-t border-white/10 pt-16">
+            <MatchLineup 
+              homeTeam={post.relatedMatch.isHome ? clubName : post.relatedMatch.opponent}
+              awayTeam={post.relatedMatch.isHome ? post.relatedMatch.opponent : clubName}
+              homeLogo={post.relatedMatch.isHome ? getImageUrl(settings?.logo?.asset?._ref) : getImageUrl(post.relatedMatch.opponentLogo?.asset?._ref)}
+              awayLogo={post.relatedMatch.isHome ? getImageUrl(post.relatedMatch.opponentLogo?.asset?._ref) : getImageUrl(settings?.logo?.asset?._ref)}
+              lineupHome={post.relatedMatch.lineupHome}
+              lineupAway={post.relatedMatch.lineupAway}
+              homeFormation={post.relatedMatch.homeFormation}
+              awayFormation={post.relatedMatch.awayFormation}
+              isHome={post.relatedMatch.isHome}
+            />
+          </div>
+        )}
+
         {/* Photo Gallery */}
         {galleryImages.length > 0 && (
-          <div className="mt-16">
+          <div className="mt-16 border-t border-white/10 pt-16">
             <h2 className="text-3xl font-black uppercase tracking-tighter mb-8">
               Galeria <span className="text-primary">Zdjęć</span>
             </h2>

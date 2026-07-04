@@ -17,6 +17,8 @@ import { ticketType } from './ticket'
 import { customPageType } from './customPage'
 import { menuItemType } from './menuItem'
 import { menuDropdownType } from './menuDropdown'
+import { defaultLineupType } from './defaultLineup'
+import { lineupPlayerType } from './lineupPlayer'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -38,5 +40,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     legalPageType,
     productType,
     ticketType,
+    defaultLineupType,
+    lineupPlayerType,
   ],
 }

@@ -8,14 +8,19 @@ export function checkRouteEnabled(pathname: string, mainMenu: any[]): boolean {
   if (pathname === '/') return true; // Home is always enabled
 
   const findLink = (items: any[], target: string): boolean => {
+    // Normalize target
+    const cleanTarget = target.startsWith('/') ? target : '/' + target;
+
     for (const item of items) {
       if (item._type === 'menuItem') {
+        const itemLink = item.link?.startsWith('/') ? item.link : '/' + (item.link || '');
+        
         // Handle trailing slashes or exact matches
-        if (item.link === target || item.link + '/' === target || item.link === target + '/') {
+        if (itemLink === cleanTarget || itemLink + '/' === cleanTarget || itemLink === cleanTarget + '/') {
           return true;
         }
         // Also allow dynamic sub-routes. If the link is '/news', then '/news/some-article' should be enabled.
-        if (target.startsWith(item.link + '/')) {
+        if (cleanTarget.startsWith(itemLink + '/')) {
           return true;
         }
       } else if (item._type === 'menuDropdown' && item.items) {

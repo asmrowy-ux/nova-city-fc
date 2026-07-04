@@ -2,25 +2,66 @@ import { client } from "@/sanity/lib/client";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import LeagueTable from "@/components/LeagueTable";
+import MatchLineup from "@/components/MatchLineup";
 import { Link } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ArrowLeft, FileText } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default async function MatchDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const [match, settings] = await Promise.all([
+  const [match, settings, defaultLineup] = await Promise.all([
     client.fetch(
       `*[_type == "match" && _id == $id][0]{
         ...,
-        opponentLogo { asset { _ref } }
+        opponentLogo { asset { _ref } },
+        lineupHome {
+          starters[] {
+            position, customName, "name": player->name, "number": player->number
+          },
+          bench[] {
+            position, customName, "name": player->name, "number": player->number
+          }
+        },
+        lineupAway {
+          starters[] {
+            position, customName, "name": player->name, "number": player->number
+          },
+          bench[] {
+            position, customName, "name": player->name, "number": player->number
+          }
+        }
       }`,
       { id }
     ),
-    client.fetch(`*[_type == "siteSettings"][0]{ title, logo { asset { _ref } } }`)
+    client.fetch(`*[_type == "siteSettings"][0]{ title, logo { asset { _ref } } }`),
+    client.fetch(`*[_type == "defaultLineup"][0]{
+      formation,
+      lineupHome {
+        starters[] {
+          position, customName, "name": player->name, "number": player->number
+        },
+        bench[] {
+          position, customName, "name": player->name, "number": player->number
+        }
+      }
+    }`)
   ]);
 
   if (!match) return notFound();
+
+  // Handle Default Lineup injection for Nova City
+  if (match.useDefaultHomeLineup && defaultLineup?.lineupHome) {
+    if (match.isHome) {
+      match.lineupHome = defaultLineup.lineupHome;
+      match.homeFormation = defaultLineup.formation;
+    } else {
+      match.lineupAway = defaultLineup.lineupHome;
+      match.awayFormation = defaultLineup.formation;
+    }
+  }
 
   function getImageUrl(ref?: string) {
     if (!ref) return '';
@@ -67,8 +108,8 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
           <div className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-2">{match.competition}</div>
           <div className="text-sm text-gray-400 mb-8">{new Date(match.date).toLocaleString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</div>
 
-          <div className="flex items-center justify-center gap-6 md:gap-16">
-            <div className="flex-1 text-right">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16">
+            <div className="flex-1 text-center md:text-right order-1 md:order-none">
               <div className="w-20 h-20 md:w-28 md:h-28 bg-secondary rounded-full flex items-center justify-center mx-auto md:ml-auto md:mr-0 mb-4 border border-white/10 p-4">
                 {homeLogo ? (
                   <img src={homeLogo} alt={homeTeam} className="w-full h-full object-contain" />
@@ -79,7 +120,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
               <h2 className="text-lg md:text-2xl font-black uppercase tracking-tight">{homeTeam}</h2>
             </div>
 
-            <div className="flex flex-col items-center min-w-[120px]">
+            <div className="flex flex-col items-center min-w-[120px] order-2 md:order-none my-4 md:my-0">
               {match.status === 'finished' ? (
                 <>
                   <div className="text-5xl md:text-7xl font-black tracking-tighter">
@@ -102,7 +143,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
               )}
             </div>
 
-            <div className="flex-1 text-left">
+            <div className="flex-1 text-center md:text-left order-3 md:order-none">
               <div className="w-20 h-20 md:w-28 md:h-28 bg-secondary rounded-full flex items-center justify-center mx-auto md:mr-auto md:ml-0 mb-4 border border-white/10 p-4">
                 {awayLogo ? (
                   <img src={awayLogo} alt={awayTeam} className="w-full h-full object-contain opacity-80" />
@@ -116,7 +157,7 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
 
           {/* Linked Article Button */}
           {linkedArticle && (
-            <div className="mt-10">
+            <div className="mt-10 order-4 md:order-none">
               <Link
                 href={`/news/${linkedArticle.slug?.current}`}
                 className="inline-flex items-center gap-3 px-8 py-3 bg-primary text-background font-bold text-sm uppercase tracking-widest hover:bg-primary/80 transition-colors rounded-sm"
@@ -137,6 +178,18 @@ export default async function MatchDetailPage({ params }: { params: Promise<{ id
             <p className="text-gray-300">{match.goalscorers}</p>
           </div>
         )}
+
+        <MatchLineup 
+          homeTeam={homeTeam} 
+          awayTeam={awayTeam} 
+          homeLogo={homeLogo} 
+          awayLogo={awayLogo} 
+          lineupHome={match.lineupHome} 
+          lineupAway={match.lineupAway}
+          homeFormation={match.homeFormation}
+          awayFormation={match.awayFormation}
+          isHome={match.isHome}
+        />
 
         {/* Match Statistics */}
         {match.status === 'finished' && (

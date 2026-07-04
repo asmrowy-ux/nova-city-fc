@@ -37,7 +37,7 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
   const displayDescription = description || `Oficjalna strona ${clubName || 'Klubu'}. Bądź na bieżąco z najnowszymi wiadomościami, meczami i ekskluzywnymi treściami klubowymi.`;
 
   return (
-    <section className="relative h-screen min-h-[800px] flex items-center overflow-hidden bg-background">
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-background py-24 lg:py-0">
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40 dark:opacity-30"
         style={{ backgroundImage: `url(${bgImageUrl})` }}
@@ -58,11 +58,11 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
             {bgLogoUrl && (
               <img src={bgLogoUrl} alt={clubName} className="w-56 h-56 md:w-80 md:h-80 object-contain drop-shadow-2xl" />
             )}
-            <div className="flex flex-col leading-none pt-4">
-              <h1 className="text-6xl md:text-[5.5rem] font-black uppercase tracking-tighter text-foreground m-0 p-0 leading-[0.85] drop-shadow-lg">
+            <div className="flex flex-col leading-none pt-4 max-w-full overflow-hidden">
+              <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black uppercase tracking-tighter text-foreground m-0 p-0 leading-[0.95] md:leading-[0.85] drop-shadow-lg break-words mb-2 md:mb-0">
                 {titleFirst}
               </h1>
-              <h1 className="text-6xl md:text-[5.5rem] font-black uppercase tracking-tighter text-primary m-0 p-0 leading-[0.85] drop-shadow-lg">
+              <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-black uppercase tracking-tighter m-0 p-0 leading-[0.95] md:leading-[0.85] drop-shadow-lg break-words" style={{ color: 'var(--theme-accent-text)' }}>
                 {titleRest}
               </h1>
             </div>
@@ -99,8 +99,8 @@ export default function HeroSection({ clubName = '', heroTitle = '', bgRef = '',
         </div>
 
         {/* Right Column: "KLUB" Menu Card */}
-        <div className="flex justify-start lg:justify-end pt-12">
-          <div className="relative bg-secondary/95 backdrop-blur-xl border rounded-[40px] p-8 w-full max-w-[400px] h-[640px] shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col" style={{ borderColor: 'color-mix(in srgb, var(--decoration-color) 50%, transparent)' }}>
+        <div className="flex justify-start lg:justify-end pt-12 pb-12 lg:pb-0">
+          <div className="relative bg-secondary/95 backdrop-blur-xl border rounded-[40px] p-6 sm:p-8 w-full max-w-[400px] min-h-[500px] h-auto lg:h-[640px] shadow-[0_0_30px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col" style={{ borderColor: 'color-mix(in srgb, var(--decoration-color) 50%, transparent)' }}>
             
             <div style={{ display: 'var(--decoration-display)' }}>
               {/* Top Right Accents */}

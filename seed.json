@@ -1,0 +1,66 @@
+[
+  {
+    "_id": "seed-league-table",
+    "_type": "leagueTable",
+    "seasonName": "Sezon 2026/2027",
+    "competition": "Ekstraklasa",
+    "autoCalculate": true,
+    "teams": [
+      {
+        "_key": "t1",
+        "teamName": "Nova City FC",
+        "played": 0, "won": 0, "drawn": 0, "lost": 0, "goalsFor": 0, "goalsAgainst": 0, "points": 0
+      },
+      {
+        "_key": "t2",
+        "teamName": "Legia Warszawa",
+        "played": 0, "won": 0, "drawn": 0, "lost": 0, "goalsFor": 0, "goalsAgainst": 0, "points": 0
+      },
+      {
+        "_key": "t3",
+        "teamName": "Lech Poznań",
+        "played": 0, "won": 0, "drawn": 0, "lost": 0, "goalsFor": 0, "goalsAgainst": 0, "points": 0
+      },
+      {
+        "_key": "t4",
+        "teamName": "Raków Częstochowa",
+        "played": 0, "won": 0, "drawn": 0, "lost": 0, "goalsFor": 0, "goalsAgainst": 0, "points": 0
+      },
+      {
+        "_key": "t5",
+        "teamName": "Pogoń Szczecin",
+        "played": 0, "won": 0, "drawn": 0, "lost": 0, "goalsFor": 0, "goalsAgainst": 0, "points": 0
+      }
+    ]
+  },
+  {
+    "_id": "seed-match-1",
+    "_type": "match",
+    "opponent": "Legia Warszawa",
+    "opponentShort": "LEG",
+    "competition": "Ekstraklasa",
+    "date": "2026-08-15T18:00:00.000Z",
+    "isHome": true,
+    "status": "upcoming"
+  },
+  {
+    "_id": "seed-match-2",
+    "_type": "match",
+    "opponent": "Lech Poznań",
+    "opponentShort": "LPO",
+    "competition": "Ekstraklasa",
+    "date": "2026-08-22T20:00:00.000Z",
+    "isHome": false,
+    "status": "upcoming"
+  },
+  {
+    "_id": "seed-match-3",
+    "_type": "match",
+    "opponent": "Raków Częstochowa",
+    "opponentShort": "RAK",
+    "competition": "Ekstraklasa",
+    "date": "2026-08-29T15:00:00.000Z",
+    "isHome": true,
+    "status": "upcoming"
+  }
+]

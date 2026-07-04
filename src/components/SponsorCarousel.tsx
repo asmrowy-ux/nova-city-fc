@@ -14,7 +14,7 @@ function getImageUrl(ref: string) {
 
 import { Leaf, Zap, Landmark, Ship } from "lucide-react";
 
-export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
+export default function SponsorCarousel({ sponsors, title = 'SPONSORZY' }: { sponsors?: any[], title?: string }) {
   const hasSanitySponsors = sponsors && sponsors.length > 0;
 
   const mockSponsors = [
@@ -53,8 +53,8 @@ export default function SponsorCarousel({ sponsors }: { sponsors?: any[] }) {
 
   return (
     <div className="pt-6 pb-6 overflow-hidden relative flex flex-col items-center">
-      <h3 className="text-lg font-bold tracking-[0.1em] text-primary mb-10 uppercase">
-        SPONSORZY
+      <h3 className="text-lg font-bold tracking-[0.1em] mb-10 uppercase" style={{ color: 'var(--theme-header-sponsors)' }}>
+        {title}
       </h3>
 
       {/* Gradient edges */}

@@ -29,6 +29,12 @@ export const matchType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'season',
+      title: 'Season (e.g. Sezon 2026/2027)',
+      type: 'string',
+      description: 'Musi pasować do nazwy sezonu w Tabeli Ligowej',
+    }),
+    defineField({
       name: 'date',
       title: 'Match Date & Time',
       type: 'datetime',
@@ -154,9 +160,97 @@ export const matchType = defineType({
       type: 'text',
       group: 'stats',
     }),
+    // --- Lineups ---
+    defineField({
+      name: 'useDefaultHomeLineup',
+      title: 'Użyj domyślnego składu (Dla Twojej drużyny)',
+      type: 'boolean',
+      description: 'Zaznacz, aby zaciągnąć skład z zakładki Domyślny Skład. Nadpisze to ręcznie wpisaną wyjściową 11 poniżej.',
+      initialValue: false,
+      group: 'lineups',
+    }),
+    defineField({
+      name: 'homeFormation',
+      title: 'Formacja (Home)',
+      type: 'string',
+      options: {
+        list: [
+          {title: '4-4-2', value: '4-4-2'},
+          {title: '4-3-3', value: '4-3-3'},
+          {title: '4-2-3-1', value: '4-2-3-1'},
+          {title: '3-5-2', value: '3-5-2'},
+          {title: '3-4-3', value: '3-4-3'},
+          {title: '5-3-2', value: '5-3-2'},
+          {title: 'Tylko Lista (Brak boiska)', value: 'list'},
+        ],
+      },
+      initialValue: 'list',
+      group: 'lineups',
+    }),
+    defineField({
+      name: 'lineupHome',
+      title: 'Home Team Lineup',
+      type: 'object',
+      group: 'lineups',
+      fields: [
+        { 
+          name: 'starters', 
+          title: 'Starting XI (Wymagane 11 jeśli rysujemy boisko)', 
+          type: 'array', 
+          of: [{ type: 'lineupPlayer' }],
+          description: 'Dodaj zawodnika i wybierz mu pozycję na boisku.' 
+        },
+        { 
+          name: 'bench', 
+          title: 'Bench (Rezerwowi)', 
+          type: 'array', 
+          of: [{ type: 'lineupPlayer' }]
+        },
+      ],
+    }),
+    defineField({
+      name: 'awayFormation',
+      title: 'Formacja (Away)',
+      type: 'string',
+      options: {
+        list: [
+          {title: '4-4-2', value: '4-4-2'},
+          {title: '4-3-3', value: '4-3-3'},
+          {title: '4-2-3-1', value: '4-2-3-1'},
+          {title: '3-5-2', value: '3-5-2'},
+          {title: '3-4-3', value: '3-4-3'},
+          {title: '5-3-2', value: '5-3-2'},
+          {title: 'Tylko Lista (Brak boiska)', value: 'list'},
+        ],
+      },
+      initialValue: 'list',
+      group: 'lineups',
+    }),
+    defineField({
+      name: 'lineupAway',
+      title: 'Away Team Lineup',
+      type: 'object',
+      group: 'lineups',
+      fields: [
+        { 
+          name: 'starters', 
+          title: 'Starting XI (Wymagane 11 jeśli rysujemy boisko)', 
+          type: 'array', 
+          of: [{ type: 'lineupPlayer' }],
+          description: 'Dodaj zawodnika i wybierz mu pozycję na boisku.' 
+        },
+        { 
+          name: 'bench', 
+          title: 'Bench (Rezerwowi)', 
+          type: 'array', 
+          of: [{ type: 'lineupPlayer' }]
+        },
+      ],
+    }),
   ],
   groups: [
     { name: 'stats', title: 'Match Statistics' },
+    { name: 'lineups', title: 'Lineups (Składy)' },
   ],
   preview: {
     select: {

@@ -38,6 +38,7 @@ export default async function Footer() {
     logoSize,
     footerDescription,
     footerCopyright,
+    sponsorsSectionTitle,
     logo { asset { _ref } } 
   }`);
 
@@ -50,12 +51,13 @@ export default async function Footer() {
   const clubName = settings?.title || '';
   const footerDesc = settings?.footerDescription || t('description', { clubName });
   const footerCopy = settings?.footerCopyright || `© ${new Date().getFullYear()} ${clubName}. Wszelkie prawa zastrzeżone.`;
+  const sponsorsTitle = settings?.sponsorsSectionTitle || 'SPONSORZY';
 
   return (
     <>
       {/* Sponsor Carousel globally visible on all pages just above the footer content */}
       <div className="bg-background border-b border-border">
-        <SponsorCarousel sponsors={sponsors} />
+        <SponsorCarousel sponsors={sponsors} title={sponsorsTitle} />
       </div>
 
       <footer className="pt-20 pb-10 border-t border-border relative overflow-hidden" style={{ backgroundColor: 'var(--theme-footer-bg)' }}>
@@ -70,25 +72,25 @@ export default async function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
             <div className="col-span-1 lg:col-span-2">
-              <Link href="/" className="flex items-center gap-1 mb-6">
+              <Link href="/" className="flex items-center gap-3 mb-6 flex-wrap">
                 {logoUrl ? (
                   <img 
                     src={logoUrl} 
                     alt={clubName || "Club Logo"} 
-                    style={{ height: settings?.logoSize ? `${settings.logoSize}px` : '56px', width: 'auto' }}
+                    style={{ height: settings?.logoSize ? `${settings.logoSize}px` : '56px', width: 'auto', maxHeight: '60px' }}
                     className="object-contain shrink-0" 
                   />
                 ) : (
-                  <div className="w-14 h-14 bg-primary flex items-center justify-center font-bold text-background text-lg shrink-0" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-primary flex items-center justify-center font-bold text-background text-lg shrink-0" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
                     NC
                   </div>
                 )}
                 <div className="flex flex-col leading-none">
-                  <div className="font-black text-xl tracking-wider uppercase drop-shadow-sm flex gap-1">
+                  <div className="font-black text-lg md:text-xl tracking-wider uppercase drop-shadow-sm flex gap-1 flex-wrap">
                     <span className="text-foreground">{clubName ? clubName.split(' ')[0] : 'WICHER'}</span>
                     <span className="text-primary">{clubName ? clubName.split(' ').slice(1).join(' ') : 'GDYNIA'}</span>
                   </div>
-                  <span className="text-gray-500 text-[10px] font-bold uppercase tracking-[0.2em] mt-1">
+                  <span className="text-gray-500 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] mt-1">
                     KLUB SPORTOWY
                   </span>
                 </div>
@@ -139,7 +141,7 @@ export default async function Footer() {
                   placeholder={t('enterEmail')} 
                   className="bg-background border border-border px-4 py-3 w-full text-sm focus:outline-none focus:border-primary text-foreground"
                 />
-                <button className="bg-primary text-background font-bold px-4 hover:bg-foreground hover:text-background transition-colors">
+                <button className="text-background font-bold px-4 hover:bg-foreground hover:text-background transition-colors" style={{ backgroundColor: 'var(--theme-btn-footer)' }}>
                   {t('go')}
                 </button>
               </form>

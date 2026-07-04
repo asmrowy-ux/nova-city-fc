@@ -16,6 +16,10 @@ import { client } from "@/sanity/lib/client";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await client.fetch(`*[_type == "siteSettings"][0]{ 
     title,
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    seoImage { asset { _ref } },
     favicon { asset { _ref } },
     logo { asset { _ref } }
   }`);
@@ -25,16 +29,38 @@ export async function generateMetadata(): Promise<Metadata> {
   if (iconRef) {
     iconUrl = `https://cdn.sanity.io/images/3kzdw0qu/production/${iconRef.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg').replace('-ico', '.ico')}?w=64&h=64&fit=crop`;
   }
+  
+  let ogImageUrl = "";
+  const ogImageRef = settings?.seoImage?.asset?._ref || settings?.logo?.asset?._ref;
+  if (ogImageRef) {
+    ogImageUrl = `https://cdn.sanity.io/images/3kzdw0qu/production/${ogImageRef.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp').replace('-svg', '.svg')}?w=1200&h=630&fit=crop`;
+  }
+
+  const siteTitle = settings?.seoTitle || settings?.title || 'Klub Sportowy';
+  const siteDesc = settings?.seoDescription || "Oficjalna strona klubu. Najnowsze wiadomości, mecze, tabele i skład.";
 
   return {
     title: {
-      template: `%s | ${settings?.title || ''}`,
-      default: settings?.title || '',
+      template: `%s | ${siteTitle}`,
+      default: siteTitle,
     },
-    description: "Welcome to the official website. News, fixtures, and more.",
+    description: siteDesc,
+    keywords: settings?.seoKeywords || 'piłka nożna, klub, mecze, wyniki, sport',
     icons: {
       icon: iconUrl,
     },
+    openGraph: {
+      title: siteTitle,
+      description: siteDesc,
+      type: 'website',
+      images: ogImageUrl ? [{ url: ogImageUrl }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: siteTitle,
+      description: siteDesc,
+      images: ogImageUrl ? [ogImageUrl] : [],
+    }
   };
 }
 
@@ -68,6 +94,12 @@ export default async function RootLayout({
     footerBackgroundColor,
     secondaryColor,
     foregroundColor,
+    accentTextColor,
+    buttonColorNavbar,
+    buttonColorNews,
+    buttonColorFooter,
+    newsSectionTitleColor,
+    sponsorsSectionTitleColor,
     mainMenu[] {
       _type,
       title,
@@ -93,6 +125,20 @@ export default async function RootLayout({
   const themeFooterBg = settings?.footerBackgroundColor || '#000000';
   const themeSecondary = settings?.secondaryColor || '#1a1a1a';
   const themeFg = settings?.foregroundColor || '#f5f5f5';
+  const themeAccentText = settings?.accentTextColor || themePrimary; // Fallback to primary if not set
+  
+  const themeHeaderNews = settings?.newsSectionTitleColor || themePrimary; // Fallback to primary
+  const themeHeaderSponsors = settings?.sponsorsSectionTitleColor || themePrimary; // Fallback to primary
+
+  // Button settings
+  const btnNav = settings?.buttonColorNavbar || decorationColor || themePrimary;
+  const btnNews = settings?.buttonColorNews || themePrimary;
+  const btnFooter = settings?.buttonColorFooter || themePrimary;
+
+  // Gradient settings (fallback to empty string so CSS fallbacks take over)
+  const newsGradientStart = settings?.newsGradientStart || '';
+  const newsGradientMid = settings?.newsGradientMid || '';
+  const newsGradientEnd = settings?.newsGradientEnd || '';
 
   return (
     <html lang={locale} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
@@ -101,12 +147,21 @@ export default async function RootLayout({
         style={{
           '--decoration-color': decorationColor,
           '--decoration-display': showDecorations ? 'block' : 'none',
-          '--theme-primary': themePrimary,
-          '--theme-bg': themeBg,
-          '--theme-header-bg': themeHeaderBg,
-          '--theme-footer-bg': themeFooterBg,
-          '--theme-secondary': themeSecondary,
-          '--theme-fg': themeFg,
+          '--sanity-primary': themePrimary,
+          '--sanity-bg': themeBg,
+          '--sanity-header-bg': themeHeaderBg,
+          '--sanity-footer-bg': themeFooterBg,
+          '--sanity-secondary': themeSecondary,
+          '--sanity-fg': themeFg,
+          '--sanity-accent-text': themeAccentText,
+          '--sanity-header-news': themeHeaderNews,
+          '--sanity-header-sponsors': themeHeaderSponsors,
+          '--sanity-btn-nav': btnNav || undefined,
+          '--sanity-btn-news': btnNews || undefined,
+          '--sanity-btn-footer': btnFooter || undefined,
+          '--sanity-gradient-start': newsGradientStart || undefined,
+          '--sanity-gradient-mid': newsGradientMid || undefined,
+          '--sanity-gradient-end': newsGradientEnd || undefined,
         } as React.CSSProperties}
       >
         {/* Global Diagonal Accents for all pages */}

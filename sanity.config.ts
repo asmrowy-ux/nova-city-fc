@@ -1,5 +1,6 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
+import {documentInternationalization} from '@sanity/document-internationalization'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
 
@@ -10,5 +11,17 @@ export default defineConfig({
   schema,
   plugins: [
     structureTool({structure}),
+    documentInternationalization({
+      supportedLanguages: [
+        {id: 'pl', title: 'Polski'},
+        {id: 'en', title: 'English'}
+      ],
+      schemaTypes: [
+        'post', 'match', 'player', 'siteSettings', 'leagueTable', 
+        'defaultLineup', 'clubArticle', 'clubHistory', 
+        'contact', 'customPage', 'jobOffer', 'legalPage', 
+        'product', 'stadium', 'staff', 'ticket'
+      ]
+    })
   ],
 })

@@ -106,7 +106,10 @@ export default function TeamClient({
                   
                   <div className="p-6 relative z-10 bg-secondary">
                     <div className="text-xs text-primary font-bold tracking-widest uppercase mb-1">
-                      {player.nationality || 'Nieznana'}
+                      {player.position === 'goalkeeper' ? 'Bramkarz' : 
+                       player.position === 'defender' ? 'Obrońca' : 
+                       player.position === 'midfielder' ? 'Pomocnik' : 
+                       player.position === 'forward' ? 'Napastnik' : player.position}
                     </div>
                     <h3 className="text-xl font-black uppercase tracking-tight group-hover:text-primary transition-colors">
                       {player.name}

@@ -1,30 +1,67 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--theme-bg, #050505);
-  --color-foreground: var(--theme-fg, #f5f5f5);
+  --color-background: var(--background, #ffffff);
+  --color-foreground: var(--foreground, #0a0a0a);
   --color-primary: var(--theme-primary, #d4af37);
   --color-primary-dark: color-mix(in srgb, var(--theme-primary) 85%, black);
-  --color-secondary: var(--theme-secondary, #1a1a1a);
-  --color-border: color-mix(in srgb, var(--theme-fg) 10%, transparent);
+  --color-secondary: var(--secondary, #f3f4f6);
+  --color-border: var(--border, rgba(0, 0, 0, 0.1));
   --color-accent: #00ff88;
   
   --font-sans: var(--font-inter);
 }
 
-/* Base definitions are managed dynamically via layout.tsx body style injections now, but fallback remains */
 :root {
+  /* Default variables for light mode */
   --background: #ffffff;
   --foreground: #0a0a0a;
   --secondary: #f3f4f6;
   --border: rgba(0, 0, 0, 0.1);
 }
 
-.dark {
-  --background: var(--theme-bg, #050505);
-  --foreground: var(--theme-fg, #f5f5f5);
-  --secondary: var(--theme-secondary, #1a1a1a);
-  --border: rgba(255, 255, 255, 0.1);
+body {
+  /* Light mode fallbacks mapped to standard --theme vars */
+  --theme-bg: var(--background);
+  --theme-fg: var(--foreground);
+  --theme-secondary: var(--secondary);
+  --theme-border: var(--border);
+  --theme-header-bg: var(--background);
+  --theme-footer-bg: #f9fafb;
+  
+  /* Primary and accent colors remain the same across themes unless overridden */
+  --theme-primary: var(--sanity-primary, #d4af37);
+  --theme-header-news: var(--sanity-header-news, var(--theme-primary));
+  --theme-header-sponsors: var(--sanity-header-sponsors, var(--theme-primary));
+  --theme-btn-nav: var(--sanity-btn-nav, var(--theme-primary));
+  --theme-btn-news: var(--sanity-btn-news, var(--theme-primary));
+  --theme-btn-footer: var(--sanity-btn-footer, var(--theme-primary));
+  --theme-accent-text: var(--sanity-accent-text, var(--theme-primary));
+}
+
+:root.dark body {
+  /* Dark mode overrides (pulling from Sanity configuration) */
+  --theme-bg: var(--sanity-bg, #050505);
+  --theme-fg: var(--sanity-fg, #f5f5f5);
+  --theme-secondary: var(--sanity-secondary, #1a1a1a);
+  --theme-border: color-mix(in srgb, var(--sanity-fg) 10%, transparent);
+  --theme-header-bg: var(--sanity-header-bg, #050505);
+  --theme-footer-bg: var(--sanity-footer-bg, #000000);
+  
+  /* Update standard background variables as well */
+  --background: var(--theme-bg);
+  --foreground: var(--theme-fg);
+  --secondary: var(--theme-secondary);
+  --border: var(--theme-border);
+  /* Gradient settings */
+  --theme-gradient-start: var(--sanity-gradient-start, var(--theme-fg));
+  --theme-gradient-mid: var(--sanity-gradient-mid, var(--theme-primary));
+  --theme-gradient-end: var(--sanity-gradient-end, var(--theme-bg));
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body {
@@ -44,7 +81,7 @@ body {
   }
   
   .bg-gradient-animated {
-    background: linear-gradient(-45deg, var(--theme-fg), var(--theme-primary), var(--theme-bg), var(--theme-primary), var(--theme-fg));
+    background: linear-gradient(-45deg, var(--theme-gradient-start), var(--theme-gradient-mid), var(--theme-gradient-end), var(--theme-gradient-mid), var(--theme-gradient-start));
     background-size: 400% 400%;
     animation: gradient-xy 10s ease infinite;
   }

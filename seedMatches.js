@@ -1,8 +1,10 @@
-const { createClient } = require('@sanity/client');
+import { createClient } from '@sanity/client';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 
 const client = createClient({
-  projectId: '3kzdw0qu',
-  dataset: 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '3kzdw0qu',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   useCdn: false,
   apiVersion: '2024-01-01',
   token: process.env.SANITY_API_TOKEN

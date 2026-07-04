@@ -1,7 +1,7 @@
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "@/i18n/routing";
 
-export default function NewsGridCustom({ posts = [], clubName = '', logoRef = '' }: { posts: any[], clubName?: string, logoRef?: string }) {
+export default function NewsGridCustom({ posts = [], clubName = '', logoRef = '', title = 'AKTUALNOŚCI' }: { posts: any[], clubName?: string, logoRef?: string, title?: string }) {
   if (!posts || posts.length === 0) return null;
 
   const mainPost = posts[0];
@@ -29,7 +29,7 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-primary font-black text-2xl uppercase tracking-widest mb-12">AKTUALNOŚCI</h2>
+        <h2 className="font-black text-2xl uppercase tracking-widest mb-12" style={{ color: 'var(--theme-header-news)' }}>{title}</h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Main Big News Card */}
@@ -51,11 +51,12 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-20" />
             </div>
 
+            {/* Badge placed relative to the whole card */}
+            <div className="bg-primary text-background text-xs font-black px-3 py-1 uppercase tracking-widest rounded absolute top-8 right-8 z-30">
+              Najnowsze wiadomości!
+            </div>
+
             <div className="relative z-10 flex flex-col items-start w-full">
-              <div className="bg-primary text-background text-xs font-black px-3 py-1 uppercase tracking-widest rounded mb-auto absolute top-0 right-0 m-8">
-                AKTUALNOŚĆ
-              </div>
-              
               <div className="text-foreground/50 text-xs font-bold uppercase tracking-widest mb-4">
                 {new Date(mainPost.publishedAt).toLocaleDateString('pl-PL', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '')}
               </div>
@@ -64,7 +65,7 @@ export default function NewsGridCustom({ posts = [], clubName = '', logoRef = ''
                 {mainPost.title}
               </h3>
               
-              <div className="text-primary font-bold text-sm tracking-widest flex items-center gap-2 group-hover:text-foreground transition-colors">
+              <div className="font-bold text-sm tracking-widest flex items-center gap-2 group-hover:text-foreground transition-colors" style={{ color: 'var(--theme-btn-news)' }}>
                 Czytaj więcej <ArrowRight className="w-4 h-4" />
               </div>
             </div>

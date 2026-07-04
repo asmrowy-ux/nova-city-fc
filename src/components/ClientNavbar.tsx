@@ -3,6 +3,7 @@
 import { Menu, Search, ShoppingBag, Globe, ChevronDown } from "lucide-react";
 import { Link, usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 import { ThemeToggle } from "./ThemeToggle";
 import { useCart } from "./CartContext";
@@ -12,6 +13,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
   const t = useTranslations("Navbar");
   const pathname = usePathname();
   const { cartCount, setIsCartOpen } = useCart();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const titleParts = title ? title.split(' ') : ['WICHER', 'GDYNIA'];
   const titleFirst = titleParts[0] || 'WICHER';
@@ -26,26 +28,26 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
         <div className="flex justify-between items-center py-4 min-h-[5rem] gap-4">
           
           {/* Logo & Title */}
-          <div className="flex items-center shrink-0">
-            <Link href="/" className="flex-shrink-0 flex items-center gap-1">
+          <div className="flex items-center min-w-0">
+            <Link href="/" className="flex items-center gap-1 sm:gap-2 min-w-0">
               {logoUrl ? (
                 <img 
                   src={logoUrl} 
                   alt={title || "Club Logo"} 
                   style={{ height: logoSize ? `${logoSize}px` : '56px', width: 'auto' }} 
-                  className="object-contain" 
+                  className="object-contain shrink-0 max-h-[40px] sm:max-h-[56px]" 
                 />
               ) : (
-                <div className="w-14 h-14 bg-primary flex items-center justify-center font-bold text-background" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
+                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-primary flex items-center justify-center font-bold text-background shrink-0" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
                   NC
                 </div>
               )}
-              <div className="hidden sm:flex flex-col leading-none">
-                <div className="font-black text-xl md:text-2xl tracking-wider uppercase drop-shadow-sm flex gap-1">
+              <div className="flex flex-col leading-none min-w-0">
+                <div className="font-black text-xs sm:text-base md:text-xl tracking-wider uppercase drop-shadow-sm flex flex-wrap gap-x-1">
                   <span className="text-foreground">{titleFirst}</span>
                   <span className="text-primary">{titleRest}</span>
                 </div>
-                <span className="text-foreground/50 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] mt-1">
+                <span className="text-gray-500 text-[7px] sm:text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] mt-1 whitespace-nowrap">
                   KLUB SPORTOWY
                 </span>
               </div>
@@ -146,7 +148,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <ThemeToggle />
             <div className="group relative hidden sm:flex items-center cursor-pointer">
               <Globe className="w-5 h-5 text-foreground/60 hover:text-primary transition-colors" />
@@ -175,22 +177,45 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
               className="hidden sm:inline-flex relative items-center justify-center gap-1.5 px-6 py-2.5 font-bold text-[11px] uppercase tracking-widest hover:text-background transition-all group"
               style={{
                 clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)',
-                color: 'var(--decoration-color)'
+                color: 'var(--theme-btn-nav)'
               }}
             >
-              <div className="absolute inset-0 border pointer-events-none" style={{ borderColor: 'var(--decoration-color)', clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}></div>
-              <div className="absolute inset-0 opacity-10 group-hover:opacity-100 transition-opacity -z-10" style={{ backgroundColor: 'var(--decoration-color)' }}></div>
+              <div className="absolute inset-0 border pointer-events-none" style={{ borderColor: 'var(--theme-btn-nav)', clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)' }}></div>
+              <div className="absolute inset-0 opacity-10 group-hover:opacity-100 transition-opacity -z-10" style={{ backgroundColor: 'var(--theme-btn-nav)' }}></div>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 z-10 group-hover:text-background">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
               <span className="z-10 group-hover:text-background">DOŁĄCZ DO KLUBU</span>
             </Link>
-            <button className="lg:hidden text-foreground">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden text-foreground">
               <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
+        
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 w-full bg-background/95 backdrop-blur-md border-b border-border py-4 px-4 shadow-xl max-h-[80vh] overflow-y-auto">
+            <div className="flex flex-col space-y-4">
+              <Link href="/news" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">AKTUALNOŚCI</Link>
+              <Link href="/team" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">PIERWSZA DRUŻYNA</Link>
+              <Link href="/academy" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">AKADEMIA</Link>
+              <Link href="/table" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">TABELA LIGI</Link>
+              <Link href="/matches" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">MECZE I WYNIKI</Link>
+              <Link href="/history" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">HISTORIA KLUBU</Link>
+              <Link href="/board" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">ZARZĄD</Link>
+              <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-foreground hover:text-primary">KONTAKT</Link>
+              <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold tracking-wider uppercase text-primary">SKLEP</Link>
+              
+              <div className="flex gap-4 pt-4 border-t border-border">
+                <Link href={pathname} locale="pl" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-foreground">PL</Link>
+                <Link href={pathname} locale="en" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-foreground">EN</Link>
+                <Link href={pathname} locale="uk" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-foreground">UK</Link>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <CartDrawer />
     </nav>

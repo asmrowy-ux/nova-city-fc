@@ -18,9 +18,16 @@ export const leagueTableType = defineType({
       initialValue: 'Ekstraklasa',
     }),
     defineField({
+      name: 'autoCalculate',
+      title: 'Obliczaj Automatycznie z Meczów',
+      type: 'boolean',
+      description: 'Zaznacz aby system sam liczył punkty/bramki na podst. zakończonych meczów dla Nova City. Wyłącz aby użyć liczb podanych ręcznie poniżej.',
+      initialValue: true,
+    }),
+    defineField({
       name: 'teams',
       title: 'Teams',
-      description: 'Add all teams in the league. Drag to reorder positions.',
+      description: 'Dodaj drużyny w lidze. Kolejność będzie nadpisana jeśli włączone jest automatyczne liczenie. Nowa drużyna wpisana tu od razu pojawi się w systemie z 0 punktami.',
       type: 'array',
       of: [
         {
@@ -29,6 +36,7 @@ export const leagueTableType = defineType({
           title: 'Team',
           fields: [
             { name: 'teamName', title: 'Team Name', type: 'string', validation: (rule: any) => rule.required() },
+            { name: 'logo', title: 'Team Logo', type: 'image', options: { hotspot: true } },
             { name: 'played', title: 'P (Played)', type: 'number', initialValue: 0 },
             { name: 'won', title: 'W (Won)', type: 'number', initialValue: 0 },
             { name: 'drawn', title: 'D (Drawn)', type: 'number', initialValue: 0 },

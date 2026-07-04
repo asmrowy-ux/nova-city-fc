@@ -30,9 +30,14 @@ export default function MatchCenter({ finishedMatch, upcomingMatches = [], clubN
           
           {finishedMatch && (
             <Link href={`/matches/${finishedMatch._id}`} className="flex-1 w-full bg-background/50 p-6 sm:p-8 rounded-2xl border border-border hover:border-primary/50 transition-all duration-300 group cursor-pointer">
-              <div className="flex items-center gap-2 text-xs text-gray-400 font-bold uppercase tracking-widest mb-6">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                {finishedMatch.status === 'finished' ? t('fullTime') : 'Nadchodzący'} • {finishedMatch.competition || 'Liga'}
+              <div className="flex flex-col items-center justify-center mb-6">
+                <div className="flex items-center gap-2 text-xs text-gray-400 font-bold uppercase tracking-widest mb-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                  {finishedMatch.status === 'finished' ? t('fullTime') : 'Nadchodzący'} • {finishedMatch.competition || 'Liga'}
+                </div>
+                <div className="text-xs sm:text-sm font-bold text-foreground/70 bg-background/50 px-4 py-1.5 rounded-full border border-border/50 uppercase tracking-widest">
+                  {new Date(finishedMatch.date).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' })}
+                </div>
               </div>
               
               <div className="flex items-center justify-center gap-6 sm:gap-12">
@@ -70,8 +75,19 @@ export default function MatchCenter({ finishedMatch, upcomingMatches = [], clubN
                   </span>
                 </div>
               </div>
-              <div className="mt-8 text-center">
-                <span className="text-xs font-semibold text-gray-400 group-hover:text-primary transition-colors uppercase tracking-widest">{t('matchReport')} →</span>
+              <div className="mt-8 text-center flex flex-col items-center gap-3">
+                {finishedMatch.status !== 'finished' && (
+                  <span className={`text-[10px] sm:text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border ${
+                    (finishedMatch.lineupHome?.starters?.length || finishedMatch.lineupAway?.starters?.length) 
+                    ? 'bg-primary/10 text-primary border-primary/20' 
+                    : 'bg-white/5 text-gray-400 border-white/10'
+                  }`}>
+                    Składy: {(finishedMatch.lineupHome?.starters?.length || finishedMatch.lineupAway?.starters?.length) ? 'Dostępne' : 'WKRÓTCE!'}
+                  </span>
+                )}
+                <span className="text-xs font-semibold text-gray-400 group-hover:text-primary transition-colors uppercase tracking-widest">
+                  {finishedMatch.status === 'finished' ? t('matchReport') : 'Szczegóły meczu'} →
+                </span>
               </div>
             </Link>
           )}

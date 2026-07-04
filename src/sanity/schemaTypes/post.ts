@@ -59,6 +59,13 @@ export const postType = defineType({
       to: [{ type: 'match' }],
     }),
     defineField({
+      name: 'showMatchLineup',
+      title: 'Show Match Lineups',
+      description: 'If checked, the lineups from the selected Related Match will be displayed at the bottom of the article.',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'gallery',
       title: 'Photo Gallery',
       description: 'Add photos from the event. They will automatically appear as a gallery below the article.',
