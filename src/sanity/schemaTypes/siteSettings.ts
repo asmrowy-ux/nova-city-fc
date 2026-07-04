@@ -288,9 +288,16 @@ export const siteSettingsType = defineType({
     }),
     defineField({
       name: 'seoKeywords',
-      title: 'Słowa Kluczowe SEO',
+      title: 'Keywords (Słowa kluczowe)',
+      description: 'Po przecinku (np. piłka nożna, gdynia, klub)',
       type: 'string',
-      description: 'Główne słowa kluczowe po przecinku (np. "piłka nożna, klub sportowy, gdynia, mecze").',
+      group: 'seo',
+    }),
+    defineField({
+      name: 'gaId',
+      title: 'Google Analytics ID (Opcjonalnie)',
+      description: 'Twój identyfikator GA4 (np. G-XXXXXXXXXX). Jeśli dodasz, Google Analytics zostanie automatycznie aktywowany na stronie!',
+      type: 'string',
       group: 'seo',
     }),
     defineField({

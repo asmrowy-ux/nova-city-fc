@@ -69,6 +69,7 @@ import { CartProvider } from '@/components/CartContext';
 
 import RouteGuard from "@/components/RouteGuard";
 import UnderConstruction from "@/components/UnderConstruction";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export default async function RootLayout({
   children,
@@ -100,6 +101,7 @@ export default async function RootLayout({
     buttonColorFooter,
     newsSectionTitleColor,
     sponsorsSectionTitleColor,
+    gaId,
     mainMenu[] {
       _type,
       title,
@@ -179,6 +181,7 @@ export default async function RootLayout({
             </CartProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
+        {settings?.gaId && <GoogleAnalytics gaId={settings.gaId} />}
       </body>
     </html>
   );
