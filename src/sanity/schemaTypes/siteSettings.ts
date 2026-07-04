@@ -58,6 +58,21 @@ export const siteSettingsType = defineType({
       description: 'Tekst wyświetlany na samym dole stopki. Zostaw puste, aby użyć domyślnego.',
     }),
     defineField({
+      name: 'heroBackground',
+      title: 'Tło sekcji głównej (Hero)',
+      type: 'image',
+      description: 'Główne zdjęcie w tle na samej górze strony. Jeśli puste, użyte zostanie domyślne.',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'heroTitle',
+      title: 'Tytuł w sekcji głównej (Hero)',
+      type: 'string',
+      description: 'Wielki napis na samej górze strony. Jeśli zostawisz puste, zostanie użyta "Nazwa Klubu".',
+    }),
+    defineField({
       name: 'heroDescription',
       title: 'Opis w sekcji głównej (Hero)',
       type: 'text',
