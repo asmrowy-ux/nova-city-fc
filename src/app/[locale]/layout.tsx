@@ -41,6 +41,9 @@ export async function generateMetadata(): Promise<Metadata> {
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from '@/components/CartContext';
 
+import RouteGuard from "@/components/RouteGuard";
+import UnderConstruction from "@/components/UnderConstruction";
+
 export default async function RootLayout({
   children,
   params,
@@ -55,13 +58,35 @@ export default async function RootLayout({
 
   const messages = await getMessages();
 
+  // Fetch site settings to get mainMenu for RouteGuard
+  const settings = await client.fetch(`*[_type == "siteSettings"][0]{
+    mainMenu[] {
+      _type,
+      title,
+      link,
+      items[] {
+        _type,
+        title,
+        link
+      }
+    }
+  }`);
+  
+  // If the user hasn't configured any menu yet, we consider it "unconfigured" and allow everything.
+  // But wait, the previous code in ClientNavbar says if mainMenu.length > 0 it uses it.
+  // So if they delete it, it's either null or empty. But if they delete everything, they want it gone.
+  // We handle this inside RouteGuard.
+  const mainMenu = settings?.mainMenu || [];
+
   return (
     <html lang={locale} className={`${inter.variable} antialiased scroll-smooth`} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary selection:text-black">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
             <CartProvider>
-              {children}
+              <RouteGuard mainMenu={mainMenu} fallback={<UnderConstruction />}>
+                {children}
+              </RouteGuard>
             </CartProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
