@@ -24,7 +24,7 @@ export default function ClientNavbar({ logoUrl, title, logoSize, mainMenu }: { l
           
           {/* Logo & Title */}
           <div className="flex items-center shrink-0">
-            <Link href="/" className="flex-shrink-0 flex items-center gap-2">
+            <Link href="/" className="flex-shrink-0 flex items-center gap-1">
               {logoUrl ? (
                 <img 
                   src={logoUrl} 
