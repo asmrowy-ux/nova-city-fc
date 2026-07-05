@@ -7,3 +7,5 @@ export const config = {
   // Match all pathnames except /studio, /api, /_next, and static files
   matcher: ['/((?!studio|api|_next|.*\\..*).*)']
 };
+
+export const runtime = 'edge';
