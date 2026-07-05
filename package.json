@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",
+    "@sanity/image-url": "^2.1.1",
     "lucide-react": "^1.22.0",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
